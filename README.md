@@ -1,3 +1,3 @@
 # Projet-GasMehFla
 ## Jeu Parkour
-**ppi** ou *italique*
+**gras** ou *italique*
