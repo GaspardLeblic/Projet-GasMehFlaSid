@@ -2,7 +2,7 @@
 ## THE MAZE
 *Par Gaspard Leblic, Flavio Giuffre, Mehdi Agrebi et Sidney Lambert*
 
-**Notre projet est un jeu de labyrinth en 2D avec une vue du dessus ou le personnage évolu dans un labyrinth fixe et constant. La map est brouillé avec un brouillage de guerre sombre et un cercle de lumière qui permet de voir le personnage. **
+**Notre projet est un jeu de labyrinth en 2D avec une vue du dessus ou le personnage évolu dans un labyrinth fixe et constant. La map est brouillé avec un brouillage de guerre sombre et un cercle de lumière qui permet de voir le personnage.**
 
 ## ➤ Inspiration pour notre projet: 
 ![image](https://github.com/user-attachments/assets/a878b70e-a7e7-4cf9-a032-5a6d7371134e)
