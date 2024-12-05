@@ -28,13 +28,3 @@ Progression :
 Un chemin unique vers la sortie, avec des étapes clairement définies par la collecte des clés.
 La difficulté augmente progressivement à mesure que le joueur avance dans le labyrinthe.
 
-
-Aspects Techniques
-Plateforme :
-Jeu jouable sur PC (Windows, Mac) avec possibilité d’adaptation mobile ou console.
-Mécaniques de Jeu :
-Vue top-down ou à la première personne.
-Contrôles simples : déplacement, interaction avec objets, résolution d'énigmes.
-Graphismes et Son :
-Style graphique épuré ou légèrement rétro, mettant l’accent sur la lisibilité du labyrinthe.
-Bande sonore immersive pour renforcer l’ambiance mystérieuse.
