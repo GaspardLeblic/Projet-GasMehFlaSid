@@ -22,7 +22,7 @@ Fonctionnalités Principales
 **Énigmes et Exploration :**
 - Les clés sont protégées par des énigmes variées.
 - L’exploration est cruciale pour découvrir des indices et débloquer des passages.
-- 
+  
 **Progression :**
 - Un chemin unique vers la sortie, avec des étapes clairement définies par la collecte des clés.
 - La difficulté augmente progressivement à mesure que le joueur avance dans le labyrinthe.
