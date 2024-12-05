@@ -2,6 +2,7 @@
 ## THE MAZE
 *Par Gaspard Leblic, Flavio Giuffre, Mehdi Agrebi et Sidney Lambert*
 
+## ➤ Description brève du projet
 **Notre projet est un jeu de labyrinth en 2D avec une vue du dessus ou le personnage évolu dans un labyrinth fixe et constant. La map est brouillé avec un brouillage de guerre sombre et un cercle de lumière qui permet de voir le personnage.**
 
 ## ➤ Inspiration pour notre projet: 
@@ -12,20 +13,19 @@
 
 ## ➤ CAHIER DES CHARGES
 Fonctionnalités Principales
-Environnement :
-
-Labyrinthe fixe et constant : l’architecture ne change pas au cours du jeu.
-Sections verrouillées par des portes nécessitant des clés pour être ouvertes.
-Système de Clés :
-
-Clés dispersées dans les différentes zones du labyrinthe.
-Chaque clé est unique et permet d’ouvrir une ou plusieurs portes spécifiques.
-Énigmes et Exploration :
-
-Les clés sont protégées par des énigmes variées.
-L’exploration est cruciale pour découvrir des indices et débloquer des passages.
-Progression :
-
-Un chemin unique vers la sortie, avec des étapes clairement définies par la collecte des clés.
-La difficulté augmente progressivement à mesure que le joueur avance dans le labyrinthe.
+**Environnement :**
+- Labyrinthe fixe et constant : l’architecture ne change pas au cours du jeu.
+- Sections verrouillées par des portes nécessitant des clés pour être ouvertes.
+  
+**Système de Clés :**
+- Clés dispersées dans les différentes zones du labyrinthe.
+- Chaque clé est unique et permet d’ouvrir une ou plusieurs portes spécifiques.
+  
+**Énigmes et Exploration :**
+- Les clés sont protégées par des énigmes variées.
+- L’exploration est cruciale pour découvrir des indices et débloquer des passages.
+- 
+**Progression :**
+- Un chemin unique vers la sortie, avec des étapes clairement définies par la collecte des clés.
+- La difficulté augmente progressivement à mesure que le joueur avance dans le labyrinthe.
 
