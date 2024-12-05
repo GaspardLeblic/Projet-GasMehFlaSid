@@ -21,7 +21,7 @@ Clés dispersées dans les différentes zones du labyrinthe.
 Chaque clé est unique et permet d’ouvrir une ou plusieurs portes spécifiques.
 Énigmes et Exploration :
 
-Les clés sont protégées par des énigmes variées (logique, observation, manipulation).
+Les clés sont protégées par des énigmes variées.
 L’exploration est cruciale pour découvrir des indices et débloquer des passages.
 Progression :
 
