@@ -1,4 +1,4 @@
-# Projet-GasMehFla
+# Projet-GasMehFlaSid
 ## Jeu Histoire
 *Par Gaspard Leblic, Flavio Giuffre, Mehdi Agrebi et Sydney Lambert*
 
