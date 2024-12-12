@@ -6,8 +6,8 @@
 **Notre projet est un jeu de labyrinth en 2D avec une vue du dessus ou le "personnage" évolu dans des differents labyrinth (donc differents niveux). La map est brouillé avec un brouillage de guerre sombre et un cercle de lumière qui permet de voir le "personnage". L'objectif est de trouver uné clef par niveau afin d'ouvrir la porte qui le fera passer au niveau suivant, sachant que au fur et à mesure des niveaux les labyrinth devienne de plus en plus complexes. Il y a une dizaine de niveaux**
 
 ## ➤ Inspiration pour notre projet: 
-![image](https://github.com/user-attachments/assets/81fe90ba-0cbc-4f9a-aca0-8b6937e0c722) 
 ![image](https://github.com/user-attachments/assets/3d618801-08f5-4f3e-a20b-398481f39e00)
+![image](https://github.com/user-attachments/assets/81fe90ba-0cbc-4f9a-aca0-8b6937e0c722) 
 ![image](https://github.com/user-attachments/assets/3b04a469-6f65-44cc-852b-8ef183d266e0)
 
 
