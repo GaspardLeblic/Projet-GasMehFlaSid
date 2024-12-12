@@ -14,23 +14,24 @@
 
 ## ➤ CAHIER DES CHARGES: 
 
-✦ **Ouverture de la page d'accueil avec trois boutons:** 
+✦ **Ouverture de la page d'accueil avec deux boutons:** 
 - Start (qui lance le premier niveau)
-- Settings (Paramètre du jeu, qui permet de modifier le sons)
+- Settings (Paramètre du jeu, qui permet de modifier les sons)
 
 ✦ **Vision du jeu:** 
-- 2D vue du dessus
+- 2D, vue du dessus
 - Au début du lancement du niveau, l'entièreté du labyrinthe est éclairé pendant 1 seconde, puis se réduit progressivement pour créer un cercle de lumière qui entoure seulement le personnage.
 
 ✦ **Maps/niveaux:**
-- Le jeu comporte 10 niveaux (10 labyrinth différents)
-- Plus les niveaux augmentent , plus les maps deviennent plus grande et compliqué 
+- Le jeu comporte 5 niveaux (5 labyrinth différents)
+- Plus les niveaux augmentent , plus les maps deviennent de plus en plus grande grande.
+- Difficultés des niveau: contre le temps, enemis qui court derrière lui )
 - Les labyrinthes ne sont pas générer aléatoirement, mais défini a l'avance
 - Dans chaque niveaux il y aura une clef bien caché, qui pourra etre récupéré lorsque le personnage passera dessus. Quand le perso s'approchera de la porte de sortie, la porte s'ouvrera (avec un sons de grincement de porte), et l'enmènera au niveau suivant.
 
 ✦ **Controle:**
-
-
+- Pour déplacer le perso = flèches conditionelles
+- Pour appuyer sur le bouton start = touche entrée
 
 ✦ **Audio:** 
 2 musiques de fond:
