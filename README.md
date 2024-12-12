@@ -36,7 +36,9 @@
 ✦ **Audio:** 
 - 2 musiques de fond:
 - 1 pour la page d'accueil (super smash bros)
+  https://youtu.be/zeKE0NHUtUw
 - 1 pour le labyrinth (la musique est la même pour chaque niveau)
+  https://youtu.be/DPRaY5QWKIk
 
 ✦ **Bruitage:**
 - Lorsque le perso arrive dans un nouveau niveau
