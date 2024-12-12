@@ -47,3 +47,78 @@
 - Lorsque il marche (bruit de pas)
 
 ## ➤ Planning
+SEMAINE 4
+
+Faire un fond d'écran (Mehdi Flavio)
+
+Programmer l'écran de base avec l'accès au diférent niveaux(Sidney Gaspard)
+
+VACANCES NOËL
+
+Faire l'interface du jeu (titre desing ect)
+
+SEMAINE 5
+
+Programmer des boutons pour quitter, aller au menu ect  (Flavio Gaspard)
+
+Créé les différent labirinte (Sidney Mehdi)
+
+SEMAINE 6
+
+Trouver une musique et la mettre dans le jeu (Sidney Flavio)
+
+Créé le personage et le mettre dans le jeu(Gaspard Mehdi)
+
+SEMAINE 7
+
+Programmer les touches de déplacement (Sidney Mehdi)
+
+Develloper les reglages (son resolution ect) (Gaspard Flavio)
+
+SEMAINE 8
+
+Faire que le personnage sois bloquer par les murs (Flavio et Mehdi)
+
+Faire le desing des murs (Gaspard et Sidney)
+
+SEMAINE 9
+
+Ajouter des clés dans chaque labirinte (Gaspard Mehdi)
+
+Ajouter les portes de sorties dans chaque labirinte (Flavio Sidney)
+
+VACANCES FEVRIER
+
+Créé le desing du monstre
+
+SEMAINE 10
+
+Ajouter des animations lorsque le personnages marche (Flavio Gaspard)
+
+Ajouter des animations lorsque le personnage trouve la clé (Sidney Mehdi)
+
+SEMAINE 11
+
+Ajouter des animations lorsque le personnage trouve la sortie (Flavio Mehdi)
+
+Ajouter un temps imparti pour certains niveaux (Gaspard Sidney)
+
+SEMAINE 12
+
+Créé un cercle de lumière autour du personnage (Flavio Sidney)
+
+Ajouter un monstre qui suis le personnage pour certain niveau (Gaspard Mehdi)
+
+SEMAINE 13
+
+Finaliser le desing du jeu (Flavio Gaspard)
+
+Ajouter des sons pour chaque animations (Sidney Mehdi)
+
+SEMAINE 14
+
+Tester le jeu pour des beugs et les corriger (tout le monde)
+
+SEMAINE 15
+
+Tout finaliser et s'assurer que tout marche (tout le monde)
