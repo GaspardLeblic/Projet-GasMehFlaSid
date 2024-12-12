@@ -3,7 +3,7 @@
 *Par Gaspard Leblic, Flavio Giuffre, Mehdi Agrebi et Sidney Lambert*
 
 ## ➤ Description brève du projet
-**Notre projet est un jeu de labyrinth en 2D avec une vue du dessus ou le "personnage" évolu dans des differents labyrinth (donc differents niveux). La map est brouillé avec un brouillage de guerre sombre et un cercle de lumière qui permet de voir le "personnage". L'objectif est de trouver la sortie, sachant que au fur et à mesure des niveaux les labyrinth devienne de plus en plus complexes. Il y a une dizaine de niveaux**
+**Notre projet est un jeu de labyrinth en 2D avec une vue du dessus ou le "personnage" évolu dans des differents labyrinth (donc differents niveux). La map est brouillé avec un brouillage de guerre sombre et un cercle de lumière qui permet de voir le "personnage". L'objectif est de trouver uné clef par niveau afin d'ouvrir la porte qui le fera passer au niveau suivant, sachant que au fur et à mesure des niveaux les labyrinth devienne de plus en plus complexes. Il y a une dizaine de niveaux**
 
 ## ➤ Inspiration pour notre projet: 
 ![image](https://github.com/user-attachments/assets/81fe90ba-0cbc-4f9a-aca0-8b6937e0c722) 
@@ -12,20 +12,35 @@
 
 
 
-## ➤ CAHIER DES CHARGES
-Fonctionnalités Principales
-**Environnement :**
-- Plusieurs labyrinthes du meme styles.
-- Un point d'arrivée qui sera le meme sur chaque niveau mais de plus en plus dur a trouver.
-  
-**Système de Sorties :**
-- Les points d'arrivées 
-  
-**Exploration :**
-- L’exploration est cruciale pour découvrir et débloquer des passages afin de progresser vers des niveaux plus élevés.
-  
-**Progression :**
-- Des chemins uniques vers la sortie, avec des étapes clairement définies par la différences des niveaux.
-- La difficulté augmente progressivement à mesure que le joueur avance dans les labyrinthe.
+## ➤ CAHIER DES CHARGES: 
+
+✦ **Ouverture de la page d'accueil avec trois boutons:** 
+- Start (qui lance le premier niveau)
+- Settings (Paramètre du jeu, qui permet de modifier le sons)
+
+✦ **Vision du jeu:** 
+- 2D vue du dessus
+- Au début du lancement du niveau, l'entièreté du labyrinthe est éclairé pendant 1 seconde, puis se réduit progressivement pour créer un cercle de lumière qui entoure seulement le personnage.
+
+✦ **Maps/niveaux:**
+- Le jeu comporte 10 niveaux (10 labyrinth différents)
+- Plus les niveaux augmentent , plus les maps deviennent plus grande et compliqué 
+- Les labyrinthes ne sont pas générer aléatoirement, mais défini a l'avance
+- Dans chaque niveaux il y aura une clef bien caché, qui pourra etre récupéré lorsque le personnage passera dessus. Quand le perso s'approchera de la porte de sortie, la porte s'ouvrera (avec un sons de grincement de porte), et l'enmènera au niveau suivant.
+
+✦ **Controle:**
+
+
+
+✦ **Audio:** 
+2 musiques de fond:
+- 1 pour la page d'accueil (super smash bros)
+- 1 pour le labyrinth (la musique est la même pour chaque niveau)
+
+✦ **Bruitage:**
+- Lorsque le perso arrive dans un nouveau niveau
+- Lorsque il récupère une clef
+- Lorsque il ouvre la porte (grincement)
+- Lorsque il marche (bruit de pas)
 
 ## ➤ Planning
