@@ -53,7 +53,7 @@ Voici un tableau organisé avec les informations que vous avez fournies pour cha
 |-------------|-----------------------------------------------------------------------------|----------------------------|
 | **Semaine 4** | Faire un fond d'écran                                                       | Mehdi, Flavio              |
 |             | Programmer l'écran de base avec l'accès aux différents niveaux             | Sidney, Gaspard            |
-|             | **Vacances Noël**                                                            |                            |
+|             | **(Vacances Noël)**                                                            |                            |
 |             | Faire l'interface du jeu (titre, design, etc.)                              |                            |
 | **Semaine 5** | Programmer des boutons pour quitter, aller au menu, etc.                    | Flavio, Gaspard            |
 |             | Créer les différents labyrinthes                                            | Sidney, Mehdi              |
@@ -65,7 +65,7 @@ Voici un tableau organisé avec les informations que vous avez fournies pour cha
 |             | Faire le design des murs                                                     | Gaspard, Sidney            |
 | **Semaine 9** | Ajouter des clés dans chaque labyrinthe                                      | Gaspard, Mehdi             |
 |             | Ajouter les portes de sortie dans chaque labyrinthe                         | Flavio, Sidney             |
-|             | **Vacances Février**                                                         |                            |
+|             | **(Vacances Février)**                                                         |                            |
 |             | Créer le design du monstre                                                   |                            |
 | **Semaine 10** | Ajouter des animations lorsque le personnage marche                        | Flavio, Gaspard            |
 |             | Ajouter des animations lorsque le personnage trouve la clé                  | Sidney, Mehdi              |
