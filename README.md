@@ -15,18 +15,15 @@
 ## ➤ CAHIER DES CHARGES
 Fonctionnalités Principales
 **Environnement :**
-- Plusieurs labyrinthes du meme styles
-- Un point d'arrivée qui sera le meme sur chaque niveau mais de plus en plus dur a trouver
+- Plusieurs labyrinthes du meme styles.
+- Un point d'arrivée qui sera le meme sur chaque niveau mais de plus en plus dur a trouver.
   
 **Système de Sorties :**
 - Les points d'arrivées 
-- Chaque clé est unique et permet d’ouvrir une ou plusieurs portes spécifiques.
   
-**Énigmes et Exploration :**
-- L’exploration est cruciale pour découvrir des indices et débloquer des passages.
+**Exploration :**
+- L’exploration est cruciale pour découvrir et débloquer des passages afin de progresser vers des niveaux plus élevés.
   
 **Progression :**
 - Des chemins uniques vers la sortie, avec des étapes clairement définies par la différences des niveaux.
 - La difficulté augmente progressivement à mesure que le joueur avance dans les labyrinthe.
-
-## ➤ Planing
