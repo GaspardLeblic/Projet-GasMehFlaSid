@@ -46,7 +46,39 @@
 - Lorsque il ouvre la porte (grincement)
 - Lorsque il marche (bruit de pas)
 
-## ➤ Planning
+## ➤ Planning: 
+Voici un tableau organisé avec les informations que vous avez fournies pour chaque semaine :
+
+| **Semaine** | **Tâches**                                                                 | **Responsables**           |
+|-------------|-----------------------------------------------------------------------------|----------------------------|
+| **Semaine 4** | Faire un fond d'écran                                                       | Mehdi, Flavio              |
+|             | Programmer l'écran de base avec l'accès aux différents niveaux             | Sidney, Gaspard            |
+|             | **Vacances Noël**                                                            |                            |
+|             | Faire l'interface du jeu (titre, design, etc.)                              |                            |
+| **Semaine 5** | Programmer des boutons pour quitter, aller au menu, etc.                    | Flavio, Gaspard            |
+|             | Créer les différents labyrinthes                                            | Sidney, Mehdi              |
+| **Semaine 6** | Trouver une musique et l'ajouter dans le jeu                               | Sidney, Flavio             |
+|             | Créer le personnage et l'intégrer dans le jeu                               | Gaspard, Mehdi             |
+| **Semaine 7** | Programmer les touches de déplacement                                        | Sidney, Mehdi              |
+|             | Développer les réglages (son, résolution, etc.)                             | Gaspard, Flavio            |
+| **Semaine 8** | Faire en sorte que le personnage soit bloqué par les murs                   | Flavio, Mehdi              |
+|             | Faire le design des murs                                                     | Gaspard, Sidney            |
+| **Semaine 9** | Ajouter des clés dans chaque labyrinthe                                      | Gaspard, Mehdi             |
+|             | Ajouter les portes de sortie dans chaque labyrinthe                         | Flavio, Sidney             |
+|             | **Vacances Février**                                                         |                            |
+|             | Créer le design du monstre                                                   |                            |
+| **Semaine 10** | Ajouter des animations lorsque le personnage marche                        | Flavio, Gaspard            |
+|             | Ajouter des animations lorsque le personnage trouve la clé                  | Sidney, Mehdi              |
+| **Semaine 11** | Ajouter des animations lorsque le personnage trouve la sortie               | Flavio, Mehdi              |
+|             | Ajouter un temps imparti pour certains niveaux                              | Gaspard, Sidney            |
+| **Semaine 12** | Créer un cercle de lumière autour du personnage                             | Flavio, Sidney             |
+|             | Ajouter un monstre qui suit le personnage pour certains niveaux             | Gaspard, Mehdi             |
+| **Semaine 13** | Finaliser le design du jeu                                                 | Flavio, Gaspard            |
+|             | Ajouter des sons pour chaque animation                                       | Sidney, Mehdi              |
+| **Semaine 14** | Tester le jeu pour les bugs et les corriger                                | Tout le monde              |
+| **Semaine 15** | Finaliser tout et s'assurer que tout fonctionne                            | Tout le monde              |
+
+Cela résume les tâches et les responsables pour chaque semaine, ce qui permettra d'avoir une vue d'ensemble claire du projet.
 - SEMAINE 4
 
 Faire un fond d'écran (Mehdi Flavio)
