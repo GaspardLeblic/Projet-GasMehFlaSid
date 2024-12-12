@@ -34,7 +34,7 @@
 - Pour appuyer sur le bouton start = touche entrée
 
 ✦ **Audio:** 
-2 musiques de fond:
+- 2 musiques de fond:
 - 1 pour la page d'accueil (super smash bros)
 - 1 pour le labyrinth (la musique est la même pour chaque niveau)
 
