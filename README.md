@@ -27,3 +27,5 @@ Fonctionnalités Principales
 **Progression :**
 - Des chemins uniques vers la sortie, avec des étapes clairement définies par la différences des niveaux.
 - La difficulté augmente progressivement à mesure que le joueur avance dans les labyrinthe.
+
+## ➤ Planning
