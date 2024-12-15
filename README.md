@@ -60,17 +60,17 @@ Voici un tableau organisé avec les informations que vous avez fournies pour cha
 | **Semaine 7** | Programmer les touches de déplacement                                        | Sidney, Mehdi              |
 |             | Développer les réglages (son, résolution, etc.)                             | Gaspard, Flavio            |
 | **Semaine 8** | Faire en sorte que le personnage soit bloqué par les murs                   | Flavio, Mehdi              |
-|             | Faire le design des murs                                                     | Gaspard, Sidney            |
+|             | Ajouter un monstre qui suit le personnage pour certains niveaux                 | Gaspard, Sidney            |
 | **Semaine 9** | Ajouter des clés dans chaque labyrinthe                                      | Gaspard, Mehdi             |
 |             | Ajouter les portes de sortie dans chaque labyrinthe                         | Flavio, Sidney             |
 |             | **(Vacances Février)**                                                         |                            |
-|             | Créer le design du monstre                                                   |                            |
+|             | Créer un cercle de lumière autour du personnage                                  |                            |
 | **Semaine 10** | Ajouter des animations lorsque le personnage marche                        | Flavio, Gaspard            |
 |             | Ajouter des animations lorsque le personnage trouve la clé                  | Sidney, Mehdi              |
 | **Semaine 11** | Ajouter des animations lorsque le personnage trouve la sortie               | Flavio, Mehdi              |
 |             | Ajouter un temps imparti pour certains niveaux                              | Gaspard, Sidney            |
-| **Semaine 12** | Créer un cercle de lumière autour du personnage                             | Flavio, Sidney             |
-|             | Ajouter un monstre qui suit le personnage pour certains niveaux             | Gaspard, Mehdi             |
+| **Semaine 12** | Créer le design du monstre                                                | Flavio, Sidney             |
+|             |  Faire le design des murs                                                     | Gaspard, Mehdi             |
 | **Semaine 13** | Finaliser le design du jeu                                                 | Flavio, Gaspard            |
 |             | Ajouter des sons pour chaque animation                                       | Sidney, Mehdi              |
 | **Semaine 14** | Tester le jeu pour les bugs et les corriger                                | Tout le monde              |
