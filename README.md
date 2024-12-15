@@ -65,11 +65,10 @@ Voici un tableau organisé avec les informations que vous avez fournies pour cha
 |             | Ajouter les portes de sortie dans chaque labyrinthe                         | Flavio, Sidney             |
 |             | **(Vacances Février)**                                                         |                            |
 |             | Créer un cercle de lumière autour du personnage                                  |                            |
-| **Semaine 10** | Ajouter des animations lorsque le personnage marche                        | Flavio, Gaspard            |
-|             | Ajouter des animations lorsque le personnage trouve la clé                  | Sidney, Mehdi              |
+| **Semaine 10** |   Ajouter un temps imparti pour certains niveaux                       | tout le monde           |
 | **Semaine 11** | Ajouter des animations lorsque le personnage trouve la sortie               | Flavio, Mehdi              |
-|             | Ajouter un temps imparti pour certains niveaux                              | Gaspard, Sidney            |
-| **Semaine 12** | Créer le design du monstre                                                | Flavio, Sidney             |
+|             | Ajouter des animations lorsque le personnage marche                             | Gaspard, Sidney            |
+| **Semaine 12** | Ajouter des animations lorsque le personnage trouve la clé                   | Flavio, Sidney             |
 |             |  Faire le design des murs                                                     | Gaspard, Mehdi             |
 | **Semaine 13** | Finaliser le design du jeu                                                 | Flavio, Gaspard            |
 |             | Ajouter des sons pour chaque animation                                       | Sidney, Mehdi              |
