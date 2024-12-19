@@ -75,3 +75,4 @@ Voici un tableau organisé avec les informations que vous avez fournies pour cha
 | **Semaine 14** | Tester le jeu pour les bugs et les corriger                                | Tout le monde              |
 | **Semaine 15** | Finaliser tout et s'assurer que tout fonctionne                            | Tout le monde              |
 
+![fond jeu](https://github.com/user-attachments/assets/37c3fa1c-e6e3-42cd-ab25-ee6c65d1f20f)
