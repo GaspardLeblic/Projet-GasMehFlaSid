@@ -77,4 +77,3 @@ Voici un tableau organisé avec les informations que vous avez fournies pour cha
 | **Semaine 14** | Tester le jeu pour les bugs et les corriger                                | Tout le monde              |
 | **Semaine 15** | Finaliser tout et s'assurer que tout fonctionne                            | Tout le monde              |
 
-![png_personnage_hero](https://github.com/user-attachments/assets/e7b54d83-f881-4390-934b-afb24af2d3c3)
