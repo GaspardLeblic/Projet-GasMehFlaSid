@@ -6,9 +6,9 @@ pygame.display.set_caption("The maze")
 screen = pygame.display.set_mode ((1200,700))
 
 
-background = pygame.image.load("Image/IMAGE BG ACCUEIL.jpg")
+background = pygame.image.load("Images/Image d'accueil.jpg")
 #import charger notre bouton pour lancer la partie
-fond_ecran_menu = pygame.image.load('Image/bouton play.PNG')
+fond_ecran_menu = pygame.image.load('Images/Bouton play.PNG')
 play_button_menu = pygame.transform.scale(fond_ecran_menu,(500,500))
 
 #perso = pygame.image.load("").convert_alpha()
