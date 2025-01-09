@@ -21,9 +21,9 @@ while running:
     screen.blit(background, (0, 0))
     pygame.display.flip()
 
-    for event in pygame.event.get():
+        for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
             running = False
-            pygame.quit()
             print ("Fermeture du jeu")
+pygame.quit()
