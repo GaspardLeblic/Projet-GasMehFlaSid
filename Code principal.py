@@ -22,7 +22,7 @@ quit_button_rect = quit_button_image.get_rect(center=(600, 500))
 
 running = True
 game_running = False
-#boucle tant que cette condition est vrai
+#boucle de jeu principal
 
 while running:
 
