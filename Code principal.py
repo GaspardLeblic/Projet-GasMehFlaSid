@@ -8,13 +8,13 @@ screen = pygame.display.set_mode ((1200,700))
 
 background = pygame.image.load("Images/Image d'accueil.jpg")
 #import charger notre bouton pour lancer la partie
-fond_ecran_menu = pygame.image.load('Images/Bouton play.PNG')
-play_button_menu = pygame.transform.scale(fond_ecran_menu,(500,500))
+fond_ecran_menu = pygame.image.load('Images/Bouton Play.PNG')
+play_button_menu = pygame.transform.scale(fond_ecran_menu,(300,300))
 quit_button_image = pygame.image.load('Images/Bouton Quitter.PNG')
-quit_button_image = pygame.transform.scale(quit_button_image, (300, 100))
+quit_button_image = pygame.transform.scale(quit_button_image, (300,240))
 
-play_button_rect = play_button_menu.get_rect(center=(600, 250))
-quit_button_rect = quit_button_image.get_rect(center=(600, 500))
+play_button_rect = play_button_menu.get_rect(center=(260, 160))
+quit_button_rect = quit_button_image.get_rect(center=(260, 320))
 
 #perso = pygame.image.load("").convert_alpha()
 #position_perso = perso.get_rect()
@@ -22,7 +22,7 @@ quit_button_rect = quit_button_image.get_rect(center=(600, 500))
 
 running = True
 game_running = False
-#boucle de jeu principal
+#boucle tant que cette condition est vrai
 
 while running:
 
