@@ -40,7 +40,7 @@ while running:
             if play_button_rect.collidepoint(event.pos):
                 print("Lancer le jeu")
                 game_running = True
-                running = False 
+                running = False
 
             if quit_button_rect.collidepoint(event.pos):
                 running = False
