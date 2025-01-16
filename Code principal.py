@@ -47,7 +47,3 @@ while running:
                 print("Quitter le jeu")
 
 pygame.quit()
-        if event.type == pygame.QUIT:
-            running = False
-            print ("Fermeture du jeu")
-pygame.quit()
