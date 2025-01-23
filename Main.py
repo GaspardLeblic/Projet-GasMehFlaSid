@@ -1,5 +1,10 @@
 import pygame
 pygame.init()
+pygame.mixer.init()
+
+pygame.mixer.music.load("Musique/Fort Boyard Main Theme.mp3")
+pygame.mixer.music.set_volume(0.5)  # Régle le volume entre 0.0 et 1.0
+pygame.mixer.music.play(-1)  # -1 pour jouer la musique en boucle
 
 #genere la fenètre de notre jeu
 pygame.display.set_caption("The maze")
