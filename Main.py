@@ -43,7 +43,6 @@ labyrinthe = [
     "111111111111111111111111",
     "111111111111111111111111",
     "111111111111111111111111",
-
 ]
 
 # Taille des cases du labyrinthe
@@ -57,6 +56,17 @@ def dessiner_labyrinthe():
                 screen.blit(pygame.transform.scale(sprite_mur, (case_size, case_size)), (x * case_size, y * case_size))
             elif case == "0":  # Sol
                 screen.blit(pygame.transform.scale(sprite_sol, (case_size, case_size)), (x * case_size, y * case_size))
+
+# Initialisation du personnage
+personnage = pygame.Rect(50, 50, 40, 40)  # Position initiale et taille
+personnage_color = (255, 0, 0)  # Couleur rouge du personnage
+
+# Initialisation de l'objectif
+objectif = pygame.Rect(1050, 550, 40, 40)  # Position de l'objectif
+objectif_color = (0, 255, 0)  # Couleur verte de l'objectif
+
+# Vitesse du personnage
+vitesse = 5
 
 # Boucle principale
 while running:
@@ -84,6 +94,27 @@ while running:
 while game_running:
     screen.fill((0, 0, 0))  # Efface l'écran
     dessiner_labyrinthe()  # Dessine le labyrinthe
+
+    # Dessiner le personnage et l'objectif
+    pygame.draw.rect(screen, personnage_color, personnage)
+    pygame.draw.rect(screen, objectif_color, objectif)
+
+    # Déplacer le personnage
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and personnage.x > 0 and labyrinthe[personnage.y // case_size][(personnage.x - vitesse) // case_size] == "0":
+        personnage.x -= vitesse
+    if keys[pygame.K_RIGHT] and personnage.x < screen.get_width() - personnage.width and labyrinthe[personnage.y // case_size][(personnage.x + personnage.width + vitesse) // case_size] == "0":
+        personnage.x += vitesse
+    if keys[pygame.K_UP] and personnage.y > 0 and labyrinthe[(personnage.y - vitesse) // case_size][personnage.x // case_size] == "0":
+        personnage.y -= vitesse
+    if keys[pygame.K_DOWN] and personnage.y < screen.get_height() - personnage.height and labyrinthe[(personnage.y + personnage.height + vitesse) // case_size][personnage.x // case_size] == "0":
+        personnage.y += vitesse
+
+    # Vérifier si le personnage a atteint l'objectif
+    if personnage.colliderect(objectif):
+        print("Félicitations, vous avez gagné !")
+        game_running = False
+
     pygame.display.flip()
 
     for event in pygame.event.get():
