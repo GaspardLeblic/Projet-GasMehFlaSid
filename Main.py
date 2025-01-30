@@ -33,15 +33,15 @@ labyrinthe = [
     "100000000000000000000001",
     "101111111011111111111101",
     "101000001010000000000001",
-    "101011100010111111101111",
+    "101011100010111111101101",
     "100010001110000100000111",
-    "111111111111111111110111",
-    "111111111111111111110111",
-    "111111111111111111110111",
-    "111111111111111111110111",
-    "111111111111111111110111",
-    "111111111111111111110011",
-    "111111111111111111110011",
+    "101111111111111111110111",
+    "101000000100011111110111",
+    "100011110111111111110111",
+    "111010000100111111110111",
+    "100000111101111111110111",
+    "101110110001111111110011",
+    "101000100111111111110011",
     "111111111111111111111111",
 ]
 
@@ -58,7 +58,7 @@ def dessiner_labyrinthe():
                 screen.blit(pygame.transform.scale(sprite_sol, (case_size, case_size)), (x * case_size, y * case_size))
 
 #initialisation du personnage
-personnage = pygame.Rect(50, 50, 40, 40)  # Position initiale et taille
+personnage = pygame.Rect(55, 55, 40, 40)  # Position initiale et taille
 personnage_color = (255, 0, 0)  # Couleur rouge du personnage
 
 #initialisation de l'objectif
@@ -66,7 +66,7 @@ objectif = pygame.Rect(1050, 550, 40, 40)  # Position de l'objectif
 objectif_color = (0, 255, 0)  # Couleur verte de l'objectif
 
 #vitesse du personnage
-vitesse = 5
+vitesse = 50
 
 # boucle principale
 while running:
@@ -101,13 +101,13 @@ while game_running:
 
     #déplacer le personnage
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT] and personnage.x > 0 and labyrinthe[personnage.y // case_size][(personnage.x - vitesse) // case_size] == "0":
+    if keys[pygame.K_LEFT] and personnage.x > 0 and labyrinthe[(personnage.y+personnage.height//2) // case_size][(personnage.x+personnage.width//2 - vitesse) // case_size] == "0":
         personnage.x -= vitesse
-    if keys[pygame.K_RIGHT] and personnage.x < screen.get_width() - personnage.width and labyrinthe[personnage.y // case_size][(personnage.x + personnage.width + vitesse) // case_size] == "0":
+    if keys[pygame.K_RIGHT] and personnage.x < screen.get_width() - personnage.width and labyrinthe[(personnage.y+personnage.height//2) // case_size][(personnage.x + personnage.width//2 + vitesse) // case_size] == "0":
         personnage.x += vitesse
-    if keys[pygame.K_UP] and personnage.y > 0 and labyrinthe[(personnage.y - vitesse) // case_size][personnage.x // case_size] == "0":
+    if keys[pygame.K_UP] and personnage.y > 0 and labyrinthe[((personnage.y + personnage.height//2) - vitesse) // case_size][(personnage.x+personnage.width//2) // case_size] == "0":
         personnage.y -= vitesse
-    if keys[pygame.K_DOWN] and personnage.y < screen.get_height() - personnage.height and labyrinthe[(personnage.y + personnage.height + vitesse) // case_size][personnage.x // case_size] == "0":
+    if keys[pygame.K_DOWN] and personnage.y < screen.get_height() - personnage.height and labyrinthe[(personnage.y + personnage.height//2 + vitesse) // case_size][(personnage.x+personnage.width//2) // case_size] == "0":
         personnage.y += vitesse
 
     # verifier si le personnage a atteint l'objectif
