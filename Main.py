@@ -32,10 +32,10 @@ labyrinthe = [
     "111111111111111111111111",
     "100000000000000000000001",
     "101111111011111111111101",
-    "101000001010000000000001",
-    "101011100010111111101101",
-    "100010001110000100000111",
-    "101111111111111111110111",
+    "101000110010000000000001",
+    "101010100111011111101101",
+    "100010001111000100000111",
+    "101111111111011111110111",
     "101000000100011111110111",
     "100011110111111111110111",
     "111010000100111111110111",
@@ -52,23 +52,50 @@ case_size = 50
 def dessiner_labyrinthe():
     for y, ligne in enumerate(labyrinthe):
         for x, case in enumerate(ligne):
-            if case == "1":  #mur
+            if case == "1":  # Mur
                 screen.blit(pygame.transform.scale(sprite_mur, (case_size, case_size)), (x * case_size, y * case_size))
-            elif case == "0":  #sol
+            elif case == "0":  # Sol
                 screen.blit(pygame.transform.scale(sprite_sol, (case_size, case_size)), (x * case_size, y * case_size))
 
 #initialisation du personnage
 personnage = pygame.Rect(55, 55, 40, 40)  # Position initiale et taille
 personnage_color = (255, 0, 0)  # Couleur rouge du personnage
 
-#initialisation de l'objectif
+# initialisation de l'objectif
 objectif = pygame.Rect(1050, 550, 40, 40)  # Position de l'objectif
 objectif_color = (0, 255, 0)  # Couleur verte de l'objectif
 
 #vitesse du personnage
 vitesse = 50
 
-# boucle principale
+#créer un objet Clock pour contrôler les FPS
+clock = pygame.time.Clock()
+
+#fonction pour créer l'effet d'ombre (zones non visibles)
+def dessiner_vision():
+    #on dessine une surface de la couleur noire pour faire l'ombre
+    vision_surface = pygame.Surface((screen.get_width(), screen.get_height()))
+    vision_surface.set_alpha(255)  # Pas de transparence, totalement opaque
+    vision_surface.fill((0, 0, 0))  # Couleur noire pour l'ombre
+    screen.blit(vision_surface, (0, 0))  # Affiche l'ombre par-dessus tout
+
+    # zone de vision : une zone de 3x3 autour du personnage (le personnage étant au centre)
+    #on va afficher 3 blocs en horizontal et 3 blocs en vertical autour du personnage
+    start_x = max(0, (personnage.x // case_size) - 1)  #début de la vision à gauche
+    start_y = max(0, (personnage.y // case_size) - 1)  #Debut de la vision vers le haut
+
+    #afficher la zone de vision autour du personnage (zone carrée de 3x3)
+    for y in range(start_y, start_y + 3):  #3 blocs en hauteur
+        for x in range(start_x, start_x + 3):  #3 blocs en largeur
+            if 0 <= y < len(labyrinthe) and 0 <= x < len(labyrinthe[0]):
+                #si c'est un mur
+                if labyrinthe[y][x] == "1":
+                    screen.blit(pygame.transform.scale(sprite_mur, (case_size, case_size)), (x * case_size, y * case_size))
+                #si c'est un sol
+                elif labyrinthe[y][x] == "0":
+                    screen.blit(pygame.transform.scale(sprite_sol, (case_size, case_size)), (x * case_size, y * case_size))
+
+#boucle principale
 while running:
     screen.blit(background, (0, 0))
     screen.blit(play_button_menu, play_button_rect)
@@ -95,6 +122,9 @@ while game_running:
     screen.fill((0, 0, 0))  #efface l'écran
     dessiner_labyrinthe()  #dessine le labyrinthe
 
+    #met l'effet de vision
+    dessiner_vision()
+
     #dessine le personnage et l'objectif
     pygame.draw.rect(screen, personnage_color, personnage)
     pygame.draw.rect(screen, objectif_color, objectif)
@@ -110,7 +140,7 @@ while game_running:
     if keys[pygame.K_DOWN] and personnage.y < screen.get_height() - personnage.height and labyrinthe[(personnage.y + personnage.height//2 + vitesse) // case_size][(personnage.x+personnage.width//2) // case_size] == "0":
         personnage.y += vitesse
 
-    # verifier si le personnage a atteint l'objectif
+    #vérifie si le personnage a atteint l'objectif
     if personnage.colliderect(objectif):
         print("Félicitations, vous avez gagné !")
         game_running = False
@@ -122,4 +152,8 @@ while game_running:
             game_running = False
             print("Fermeture du jeu")
 
+    #fps
+    clock.tick(10)
+
 pygame.quit()
+
