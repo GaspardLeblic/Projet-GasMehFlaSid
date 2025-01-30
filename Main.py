@@ -62,8 +62,8 @@ personnage = pygame.Rect(55, 55, 40, 40)  # Position initiale et taille
 personnage_color = (255, 0, 0)  # Couleur rouge du personnage
 
 # initialisation de l'objectif
-objectif = pygame.Rect(1050, 550, 40, 40)  # Position de l'objectif
-objectif_color = (0, 255, 0)  # Couleur verte de l'objectif
+objectif = pygame.Rect(1050, 550, 50, 50)  # Position de l'objectif
+objectif_color = (0, 0, 0)  # Couleur verte de l'objectif
 
 #vitesse du personnage
 vitesse = 50
