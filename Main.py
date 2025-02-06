@@ -27,31 +27,57 @@ personnage_image = pygame.transform.scale(personnage_image, (40, 40))
 ecran_victoire = pygame.image.load("Images/thank-you-for-playing-1.png")
 ecran_victoire = pygame.transform.scale(ecran_victoire, (1200, 700))
 
+bouton_suivant_image = pygame.image.load("Images/prochain_niveau.jpg")
+bouton_suivant_rect = bouton_suivant_image.get_rect(center=(600, 600))
+
 running = True
 game_running = False
 victoire = False
+niveau = 1
 
-labyrinthe = [
-    "111111111111111111111111",
-    "100000000000000000000001",
-    "101111111011111111111101",
-    "101000110010000000000001",
-    "101010100111011111101101",
-    "100010001111000100000111",
-    "101111111111011111110111",
-    "101000000100011111110111",
-    "100011110111111111110111",
-    "111010000100111111110111",
-    "100000111101111111110111",
-    "101110110001111111110011",
-    "101000100111111111110011",
-    "111111111111111111111111",
-]
+def charger_labyrinthe(niveau):
+    labyrinthes = [
+        # Niveau 1
+        [
+            "111111111111111111111111",
+            "100000000000000000000001",
+            "101111111011111111111101",
+            "101000110010000000000001",
+            "101010100111011111101101",
+            "100010001111000100000111",
+            "101111111111011111110111",
+            "101000000100011111110111",
+            "100011110111111111110111",
+            "111010000100111111110111",
+            "100000111101111111110111",
+            "101110110001111111110011",
+            "101000100111111111110011",
+            "111111111111111111111111",
+        ],
+        # Niveau 2
+        [
+            "111111111111111111111111",
+            "100000000011111100000001",
+            "101111110011111100111101",
+            "101000010000000000001001",
+            "101010111011101110101101",
+            "100010000011100100000101",
+            "101111111111111111110101",
+            "101000000000000000010001",
+            "100011111111111111011101",
+            "111010000000000000010111",
+            "100000111111011111110011",
+            "101110000000000000110011",
+            "101000111111111110000001",
+            "111111111111111111111111",
+        ]
+    ]
+    return labyrinthes[niveau - 1]
 
 case_size = 50
 
-def dessiner_labyrinthe():
-    for y, ligne in enumerate(labyrinthe):
+def dessiner_labyrinthe(lab):
+    for y, ligne in enumerate(lab):
         for x, case in enumerate(ligne):
             if case == "1":
                 screen.blit(pygame.transform.scale(sprite_mur, (case_size, case_size)), (x * case_size, y * case_size))
@@ -89,20 +115,25 @@ while running:
 
 while game_running:
     screen.fill((0, 0, 0))
-    dessiner_labyrinthe()
+    labyrinthe = charger_labyrinthe(niveau)
+    dessiner_labyrinthe(labyrinthe)
     pygame.draw.rect(screen, objectif_color, objectif)
     screen.blit(personnage_image, (personnage.x, personnage.y))
     dessiner_vision()
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT] and personnage.x > 0 and labyrinthe[(personnage.y+personnage.height//2) // case_size][(personnage.x+personnage.width//2 - vitesse) // case_size] == "0":
-        personnage.x -= vitesse
-    if keys[pygame.K_RIGHT] and personnage.x < screen.get_width() - personnage.width and labyrinthe[(personnage.y+personnage.height//2) // case_size][(personnage.x + personnage.width//2 + vitesse) // case_size] == "0":
-        personnage.x += vitesse
-    if keys[pygame.K_UP] and personnage.y > 0 and labyrinthe[((personnage.y + personnage.height//2) - vitesse) // case_size][(personnage.x+personnage.width//2) // case_size] == "0":
-        personnage.y -= vitesse
-    if keys[pygame.K_DOWN] and personnage.y < screen.get_height() - personnage.height and labyrinthe[(personnage.y + personnage.height//2 + vitesse) // case_size][(personnage.x+personnage.width//2) // case_size] == "0":
-        personnage.y += vitesse
+    new_x, new_y = personnage.x, personnage.y
+    if keys[pygame.K_LEFT]:
+        new_x -= vitesse
+    if keys[pygame.K_RIGHT]:
+        new_x += vitesse
+    if keys[pygame.K_UP]:
+        new_y -= vitesse
+    if keys[pygame.K_DOWN]:
+        new_y += vitesse
+
+    if labyrinthe[new_y // case_size][new_x // case_size] == "0":
+        personnage.x, personnage.y = new_x, new_y
 
     if personnage.colliderect(objectif):
         victoire = True
@@ -118,9 +149,57 @@ while game_running:
 
 while victoire:
     screen.blit(ecran_victoire, (0, 0))
+    screen.blit(bouton_suivant_image, bouton_suivant_rect)
     pygame.display.flip()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             victoire = False
+            game_running = False  # Assurer que le jeu s'arrête
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if bouton_suivant_rect.collidepoint(event.pos):
+                victoire = False  # Quitter l'écran de victoire
+                niveau += 1  # Passer au niveau suivant
+
+                if niveau > 2:  # Si on a fini tous les niveaux, on termine le jeu
+                    game_running = False
+                else:
+                    personnage.x, personnage.y = 55, 55  # Réinitialiser la position
+                    objectif = pygame.Rect(1050, 550, 50, 50)  # Assurer que l'objectif est bien positionné
+                    game_running = True  # Reprendre le jeu
+
+while game_running:
+    screen.fill((0, 0, 0))
+    labyrinthe = charger_labyrinthe(niveau)  # Charger le bon labyrinthe selon le niveau
+    dessiner_labyrinthe(labyrinthe)
+    pygame.draw.rect(screen, objectif_color, objectif)
+    screen.blit(personnage_image, (personnage.x, personnage.y))
+    dessiner_vision()
+
+    keys = pygame.key.get_pressed()
+    new_x, new_y = personnage.x, personnage.y
+    if keys[pygame.K_LEFT]:
+        new_x -= vitesse
+    if keys[pygame.K_RIGHT]:
+        new_x += vitesse
+    if keys[pygame.K_UP]:
+        new_y -= vitesse
+    if keys[pygame.K_DOWN]:
+        new_y += vitesse
+
+    if labyrinthe[new_y // case_size][new_x // case_size] == "0":
+        personnage.x, personnage.y = new_x, new_y
+
+    if personnage.colliderect(objectif):
+        victoire = True
+        game_running = False  # Sortir de la boucle pour aller à l'écran de victoire
+
+    pygame.display.flip()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            game_running = False
+
+    clock.tick(10)
+
 pygame.quit()
