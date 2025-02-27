@@ -15,19 +15,19 @@ play_button_menu = pygame.transform.scale(fond_ecran_menu, (300, 300))
 quit_button_image = pygame.image.load('Images/Bouton Quitter.PNG')
 quit_button_image = pygame.transform.scale(quit_button_image, (300, 240))
 
-sprite_sol = pygame.image.load("Images/sprite_sol.jpg")
-sprite_mur = pygame.image.load("Images/sprite_mur.jpg")
+sprite_sol = pygame.image.load("Images/Image_sol.jpg")
+sprite_mur = pygame.image.load("Images/Image_mur.jpg")
 
 play_button_rect = play_button_menu.get_rect(center=(260, 160))
 quit_button_rect = quit_button_image.get_rect(center=(260, 320))
 
-personnage_image = pygame.image.load("Images/perso_face.png")
+personnage_image = pygame.image.load("Images/Perso_de_face.png")
 personnage_image = pygame.transform.scale(personnage_image, (40, 40))
 
-ecran_victoire = pygame.image.load("Images/thank-you-for-playing-1.png")
+ecran_victoire = pygame.image.load("Images/Thank_you_for_playing.png")
 ecran_victoire = pygame.transform.scale(ecran_victoire, (1200, 700))
 
-bouton_suivant_image = pygame.image.load("Images/prochain_niveau.jpg")
+bouton_suivant_image = pygame.image.load("Images/Image_prochain_niveau.png")
 bouton_suivant_rect = bouton_suivant_image.get_rect(center=(600, 600))
 
 running = True
@@ -40,20 +40,20 @@ def charger_labyrinthe(niveau):
         # Niveau 1
         [
             "111111111111111111111111",
-            "100000000000000000000001",
-            "101111111011111111111101",
-            "101000110010000000000001",
-            "101010100111011111101101",
-            "100010001111000100000111",
-            "101111111111011111110111",
-            "101000000100011111110111",
-            "100011110111111111110111",
-            "111010000100111111110111",
-            "100000111101111111110111",
-            "101110110001111111110011",
-            "101000100111111111110011",
+            "100000000010000000000001",
+            "101111111010111110111101",
+            "101000100010000000000001",
+            "101010101011011111101101",
+            "100010001001010100000111",
+            "101111111101010111110001",
+            "101000000100010100011101",
+            "100011110110110101010001",
+            "111010000100100001010111",
+            "100000111101101111010011",
+            "101110110000001011011011",
+            "101000000111111000001111",
             "111111111111111111111111",
-        ],
+    ],
         # Niveau 2
         [
             "111111111111111111111111",
