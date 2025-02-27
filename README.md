@@ -3,7 +3,15 @@
 *Par Gaspard Leblic, Flavio Giuffre, Mehdi Agrebi et Sidney Lambert*
 
 ## ➤ Avancement du projet 06/02: 
+À ce moment là du projet nous avons la base de notre jeu avec: 
+- Un écran d'accueil avec des boutons fonctionnels
+- Des labyrinthes jouables ( avec le joueur qui se déplace et lorsque il arrive à la fin, il accédé au prochain niveau)
+- Puis, un écran de fin
 
+Ce qui nous reste à faire pour les prochaines séances: 
+-  Créer encore de nouveaux labyrinthes avec des spécificités différentes ( différents bloc de murs, difficultés en plus)
+- Modifier le design de notre jeu pour avoir quelque chose de plus esthétique
+-   Créer un bouton menu sur la page d'accueil où on pourra accéder au menu qui nous montrera les différents niveaux du jeu
 
 ## ➤ Description brève du projet
 **Notre projet est un jeu de labyrinth en 2D avec une vue du dessus ou le "personnage" évolu dans des differents labyrinth (donc differents niveux). La map est brouillé avec un brouillage de guerre sombre et un cercle de lumière qui permet de voir le "personnage". L'objectif est de trouver uné clef par niveau afin d'ouvrir la porte qui le fera passer au niveau suivant, sachant que au fur et à mesure des niveaux les labyrinth devienne de plus en plus complexes. Il y a une dizaine de niveaux...**
