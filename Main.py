@@ -16,8 +16,12 @@ background = pygame.image.load("Images/Image d'accueil.jpg")
 play_button_menu = pygame.transform.scale(pygame.image.load('Images/Bouton Play.PNG'), (300, 300))
 quit_button_image = pygame.transform.scale(pygame.image.load('Images/Bouton Quitter.PNG'), (300, 240))
 
-sprite_sol = pygame.image.load("Images/sprite_sol.jpg")
-sprite_mur = pygame.image.load("Images/sprite_mur.jpg")
+sprite_sol_1 = pygame.image.load("Images/sprite_sol.jpg")
+sprite_mur_1 = pygame.image.load("Images/sprite_mur.jpg")
+sprite_sol_2 = pygame.image.load("Images/sprite_sol_2.jpg")
+sprite_mur_2 = pygame.image.load("Images/sprite_mur_2.jpg")
+sprite_sol_3 = pygame.image.load("Images/sprite_sol_3.jpg")
+sprite_mur_3 = pygame.image.load("Images/sprite_mur_3.jpg")
 
 personnage_image = pygame.transform.scale(pygame.image.load("Images/perso_face.png"), (40, 40))
 ecran_victoire = pygame.transform.scale(pygame.image.load("Images/thank_you_for_playing.png"), (1200, 700))
@@ -87,14 +91,24 @@ def charger_labyrinthe(niveau):
     return labyrinthes[niveau - 1]
 
 # Dessiner le labyrinthe
-def dessiner_labyrinthe(lab):
+
+def dessiner_labyrinthe(lab, niveau):
     for y, ligne in enumerate(lab):
         for x, case in enumerate(ligne):
             if case == "1":
-                screen.blit(pygame.transform.scale(sprite_mur, (case_size, case_size)), (x * case_size, y * case_size))
+                if niveau == 1:
+                    screen.blit(pygame.transform.scale(sprite_mur_1, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 2:
+                    screen.blit(pygame.transform.scale(sprite_mur_2, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 3:
+                    screen.blit(pygame.transform.scale(sprite_mur_3, (case_size, case_size)), (x * case_size, y * case_size))  # Mur niveau 3
             elif case == "0":
-                screen.blit(pygame.transform.scale(sprite_sol, (case_size, case_size)), (x * case_size, y * case_size))
-
+                if niveau == 1:
+                    screen.blit(pygame.transform.scale(sprite_sol_1, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 2:
+                    screen.blit(pygame.transform.scale(sprite_sol_2, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 3:
+                    screen.blit(pygame.transform.scale(sprite_sol_3, (case_size, case_size)), (x * case_size, y * case_size))  # Sol niveau 3
 # Vision réduite du joueur
 def dessiner_vision():
     vision_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
@@ -145,7 +159,7 @@ while game_running:
     while not victoire:
         screen.fill((0, 0, 0))
         labyrinthe = charger_labyrinthe(niveau)
-        dessiner_labyrinthe(labyrinthe)
+        dessiner_labyrinthe(labyrinthe, niveau)
         pygame.draw.rect(screen, (0, 0, 0), objectif)
         screen.blit(personnage_image, (personnage.x, personnage.y))
         dessiner_vision()
