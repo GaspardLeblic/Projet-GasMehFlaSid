@@ -15,26 +15,26 @@ play_button_menu = pygame.transform.scale(fond_ecran_menu, (300, 300))
 quit_button_image = pygame.image.load('Images/Bouton Quitter.PNG')
 quit_button_image = pygame.transform.scale(quit_button_image, (300, 240))
 
-sprite_sol = pygame.image.load("Images/Image_sol.jpg")
-sprite_mur = pygame.image.load("Images/Image_mur.jpg")
+sprite_sol_1 = pygame.image.load("Images/sprite_sol.jpg")
+sprite_mur_1 = pygame.image.load("Images/sprite_mur.jpg")
+sprite_sol_2 = pygame.image.load("Images/sprite_sol_2.jpg")
+sprite_mur_2 = pygame.image.load("Images/sprite_mur_2.jpg")
+sprite_sol_3 = pygame.image.load("Images/sprite_sol_3.jpg")
+sprite_mur_3 = pygame.image.load("Images/sprite_mur_3.jpg")  
 
 play_button_rect = play_button_menu.get_rect(center=(260, 160))
 quit_button_rect = quit_button_image.get_rect(center=(260, 320))
 
-personnage_image = pygame.image.load("Images/Perso_de_face.png")
+personnage_image = pygame.image.load("Images/Perso jeux.png")
 personnage_image = pygame.transform.scale(personnage_image, (40, 40))
 
-ecran_victoire = pygame.image.load("Images/Thank_you_for_playing.png")
-ecran_victoire = pygame.transform.scale(ecran_victoire, (1200, 700))
+vitesse = 50
+clock = pygame.time.Clock()
 
-bouton_suivant_image = pygame.image.load("Images/Image_prochain_niveau.png")
-bouton_suivant_rect = bouton_suivant_image.get_rect(center=(600, 600))
-
+# Ajouter un bouton suivant pour la navigation entre les niveaux
 running = True
 game_running = False
-victoire = False
 niveau = 1
-return_to_menu = False
 
 def charger_labyrinthe(niveau):
     labyrinthes = [
@@ -71,46 +71,61 @@ def charger_labyrinthe(niveau):
             "101110000000000000110011",
             "101000111111111110000001",
             "111111111111111111111111",
+        ],
+        # Niveau 3
+        [
+            "111111111111111111111111",
+            "100000000000000000000001",
+            "101111111110111111111101",
+            "101000100010000100000001",
+            "101010101011011101101101",
+            "100010001101010101000111",
+            "101111111101010111110011",
+            "101000000100000100010101",
+            "100011110110110101010111",
+            "111010000100100001010111",
+            "100000111101101111010011",
+            "101110110000001011010001",
+            "101000000111111000001111",
+            "111111111111111111111111",
         ]
     ]
     return labyrinthes[niveau - 1]
 
 case_size = 50
 
-def dessiner_labyrinthe(lab):
+def dessiner_labyrinthe(lab, niveau):
     for y, ligne in enumerate(lab):
         for x, case in enumerate(ligne):
             if case == "1":
-                screen.blit(pygame.transform.scale(sprite_mur, (case_size, case_size)), (x * case_size, y * case_size))
+                if niveau == 1:
+                    screen.blit(pygame.transform.scale(sprite_mur_1, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 2:
+                    screen.blit(pygame.transform.scale(sprite_mur_2, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 3:
+                    screen.blit(pygame.transform.scale(sprite_mur_3, (case_size, case_size)), (x * case_size, y * case_size))  # Mur niveau 3
             elif case == "0":
-                screen.blit(pygame.transform.scale(sprite_sol, (case_size, case_size)), (x * case_size, y * case_size))
+                if niveau == 1:
+                    screen.blit(pygame.transform.scale(sprite_sol_1, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 2:
+                    screen.blit(pygame.transform.scale(sprite_sol_2, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 3:
+                    screen.blit(pygame.transform.scale(sprite_sol_3, (case_size, case_size)), (x * case_size, y * case_size))  # Sol niveau 3
 
 def dessiner_vision():
     vision_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
-    vision_surface.fill((0, 0, 0, 255))
+    vision_surface.fill((0, 0, 0, 0))
     pygame.draw.circle(vision_surface, (0, 0, 0, 0), (personnage.x + 20, personnage.y + 20), 100)
     screen.blit(vision_surface, (0, 0))
-
-def peut_deplacer(x, y, lab):
-    if lab[y // case_size][x // case_size] == "0":
-        return True
-    return False
-
-def bloquer_collision(x, y, lab):
-    x1, y1 = x // case_size, y // case_size
-    x2, y2 = (x + personnage.width) // case_size, (y + personnage.height) // case_size
-    if lab[y1][x1] == "1" or lab[y1][x2] == "1" or lab[y2][x1] == "1" or lab[y2][x2] == "1":
-        return False
-    return True
 
 personnage = pygame.Rect(55, 55, 40, 40)
 objectif = pygame.Rect(1050, 550, 50, 50)
 objectif_color = (0, 0, 0)
 
-vitesse = 5
-clock = pygame.time.Clock()
+running = True
+game_running = False
+niveau = 1
 
-# Boucle du menu principal
 while running:
     screen.blit(background, (0, 0))
     screen.blit(play_button_menu, play_button_rect)
@@ -127,19 +142,16 @@ while running:
             if quit_button_rect.collidepoint(event.pos):
                 running = False
 
-# Boucle de jeu (niveau en cours)
 while game_running:
     screen.fill((0, 0, 0))
     labyrinthe = charger_labyrinthe(niveau)
-    dessiner_labyrinthe(labyrinthe)
+    dessiner_labyrinthe(labyrinthe, niveau)
     pygame.draw.rect(screen, objectif_color, objectif)
     screen.blit(personnage_image, (personnage.x, personnage.y))
     dessiner_vision()
 
     keys = pygame.key.get_pressed()
     new_x, new_y = personnage.x, personnage.y
-
-    # Calculer le mouvement
     if keys[pygame.K_LEFT]:
         new_x -= vitesse
     if keys[pygame.K_RIGHT]:
@@ -149,15 +161,17 @@ while game_running:
     if keys[pygame.K_DOWN]:
         new_y += vitesse
 
-    # Vérifie si la nouvelle position est libre avant de déplacer
-    if bloquer_collision(new_x, personnage.y, labyrinthe):
-        personnage.x = new_x
-    if bloquer_collision(personnage.x, new_y, labyrinthe):
-        personnage.y = new_y
+    if labyrinthe[new_y // case_size][new_x // case_size] == "0":
+        personnage.x, personnage.y = new_x, new_y
 
     if personnage.colliderect(objectif):
-        victoire = True
-        game_running = False
+        niveau += 1  # Passer au niveau suivant
+        if niveau > 3:  # Si c'est le dernier niveau, quitter le jeu
+            game_running = False
+        else:
+            # Réinitialiser le personnage pour le niveau suivant
+            personnage.x, personnage.y = 55, 55
+            objectif = pygame.Rect(1050, 550, 50, 50)
 
     pygame.display.flip()
 
@@ -165,49 +179,7 @@ while game_running:
         if event.type == pygame.QUIT:
             game_running = False
 
-    clock.tick(60)
-
-# Boucle de l'écran de victoire (après avoir terminé un niveau)
-while victoire:
-    screen.blit(ecran_victoire, (0, 0))
-    screen.blit(bouton_suivant_image, bouton_suivant_rect)
-    pygame.display.flip()
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            victoire = False
-            game_running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if bouton_suivant_rect.collidepoint(event.pos):
-                victoire = False
-                niveau += 1
-                # Si le joueur a terminé tous les niveaux, retourner au menu
-                if niveau > 2:
-                    return_to_menu = True
-                else:
-                    personnage.x, personnage.y = 55, 55
-                    objectif = pygame.Rect(1050, 550, 50, 50)
-                    game_running = False  # Sortir de la boucle de jeu et revenir au menu principal
-
-# Retour au menu principal après la fin du jeu
-while return_to_menu:
-    screen.blit(background, (0, 0))
-    screen.blit(play_button_menu, play_button_rect)
-    screen.blit(quit_button_image, quit_button_rect)
-    pygame.display.flip()
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            return_to_menu = False
-            running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if play_button_rect.collidepoint(event.pos):
-                game_running = True
-                return_to_menu = False
-                niveau = 1  # Réinitialiser le niveau
-                running = False
-            if quit_button_rect.collidepoint(event.pos):
-                return_to_menu = False
-                running = False
+    clock.tick(10)
 
 pygame.quit()
+
