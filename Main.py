@@ -98,7 +98,7 @@ def dessiner_labyrinthe(lab):
 # Vision réduite du joueur
 def dessiner_vision():
     vision_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
-    vision_surface.fill((0, 0, 0, 180))
+    vision_surface.fill((0, 0, 0, 255))
     pygame.draw.circle(vision_surface, (0, 0, 0, 0), (personnage.x + 20, personnage.y + 20), 100)
     screen.blit(vision_surface, (0, 0))
 
