@@ -22,12 +22,27 @@ sprite_sol_2 = pygame.image.load("Images/sprite_sol_2.jpg")
 sprite_mur_2 = pygame.image.load("Images/sprite_mur_2.jpg")
 sprite_sol_3 = pygame.image.load("Images/sprite_sol_3.jpg")
 sprite_mur_3 = pygame.image.load("Images/sprite_mur_3.jpg")
+sprite_sol_4 = pygame.image.load("Images/sprite_sol_4.jpg.png")
+sprite_mur_4 = pygame.image.load("Images/sprite_mur_4.jpg")
 
-# Nouveau sol et mur pour le 4ème niveau
-sprite_sol_4 = pygame.image.load("Images/sprite_sol_4.jpg")
-sprite_mur_4 = pygame.image.load("Images/sprite_mur_4.png")
+# Chargement des images du personnage pour les animations
+perso_face = [pygame.transform.scale(pygame.image.load(f"Images/perso_face.jpg"), (40, 40)) for i in range(1, 4)]
+perso_face_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_face_marche.jpg"), (40, 40)) for i in range(1, 4)]
+perso_face_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_face_marche2.jpg"), (40, 40)) for i in range(1, 4)]
 
-personnage_image = pygame.transform.scale(pygame.image.load("Images/perso_face.png"), (40, 40))
+perso_dos = [pygame.transform.scale(pygame.image.load(f"Images/perso_dos.jpg"), (40, 40)) for i in range(1, 4)]
+perso_dos_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_dos_marche.jpg"), (40, 40)) for i in range(1, 4)]
+perso_dos_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_dos_marche2.jpg"), (40, 40)) for i in range(1, 4)]
+
+perso_profil_droit = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_droit.jpg"), (40, 40)) for i in range(1, 4)]
+perso_profil_droit_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_droit_marche.jpg"), (40, 40)) for i in range(1, 4)]
+perso_profil_droit_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_droit_marche2.jpg"), (40, 40)) for i in range(1, 4)]
+
+perso_profil_gauche = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_gauche.jpg"), (40, 40)) for i in range(1, 4)]
+perso_profil_gauche_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_gauche_marche.jpg"), (40, 40)) for i in range(1, 4)]
+perso_profil_gauche_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_gauche_marche2.jpg"), (40, 40)) for i in range(1, 4)]
+
+personnage_image = pygame.transform.scale(pygame.image.load("Images/perso_face.jpg"), (40, 40))
 ecran_victoire = pygame.transform.scale(pygame.image.load("Images/thank_you_for_playing.png"), (1200, 700))
 bouton_suivant_image = pygame.image.load("Images/Image_prochain_niveau.png")
 
@@ -91,7 +106,6 @@ def charger_labyrinthe(niveau):
             "101000000111111000001111",
             "111111111111111111111111",
         ],
-        # Nouveau 4ème niveau
         [
             "111111111111111111111111",
             "100000001000000001000001",
@@ -138,7 +152,7 @@ def dessiner_labyrinthe(lab, niveau):
 # Vision réduite du joueur
 def dessiner_vision():
     vision_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
-    vision_surface.fill((0, 0, 0, 0))
+    vision_surface.fill((0, 0, 0, 255))
     pygame.draw.circle(vision_surface, (0, 0, 0, 0), (personnage.x + 20, personnage.y + 20), 100)
     screen.blit(vision_surface, (0, 0))
 
@@ -177,6 +191,28 @@ while running:
 niveau = 1
 game_running = True
 
+# Liste complète des images d'animation (incluant toutes les images)
+perso_images = {
+    "gauche": [perso_profil_gauche[0], perso_profil_gauche_marche[0], perso_profil_gauche_marche2[0],
+               perso_profil_gauche[1], perso_profil_gauche_marche[1], perso_profil_gauche_marche2[1],
+               perso_profil_gauche[2], perso_profil_gauche_marche[2], perso_profil_gauche_marche2[2]],
+
+    "droite": [perso_profil_droit[0], perso_profil_droit_marche[0], perso_profil_droit_marche2[0],
+               perso_profil_droit[1], perso_profil_droit_marche[1], perso_profil_droit_marche2[1],
+               perso_profil_droit[2], perso_profil_droit_marche[2], perso_profil_droit_marche2[2]],
+
+    "haut": [perso_dos[0], perso_dos_marche[0], perso_dos_marche2[0],
+             perso_dos[1], perso_dos_marche[1], perso_dos_marche2[1],
+             perso_dos[2], perso_dos_marche[2], perso_dos_marche2[2]],
+
+    "bas": [perso_face[0], perso_face_marche[0], perso_face_marche2[0],
+            perso_face[1], perso_face_marche[1], perso_face_marche2[1],
+            perso_face[2], perso_face_marche[2], perso_face_marche2[2]]
+}
+
+# Initialisation de l'index d'animation
+perso_anim = 0
+
 while game_running:
     personnage = pygame.Rect(55, 55, 40, 40)
     objectif = pygame.Rect(1050, 550, 50, 50)
@@ -187,19 +223,24 @@ while game_running:
         labyrinthe = charger_labyrinthe(niveau)
         dessiner_labyrinthe(labyrinthe, niveau)
         pygame.draw.rect(screen, (0, 0, 0), objectif)
-        screen.blit(personnage_image, (personnage.x, personnage.y))
-        dessiner_vision()
 
         keys = pygame.key.get_pressed()
         new_x, new_y = personnage.x, personnage.y
+        personnage_image = perso_face[0]  # Image par défaut si aucune direction n'est enfoncée
+
+        # Si une touche est pressée, choisir l'image correspondante et se déplacer
         if keys[pygame.K_LEFT]:
             new_x -= vitesse
+            personnage_image = perso_images["gauche"][perso_anim % len(perso_images["gauche"])]  # Animation gauche
         if keys[pygame.K_RIGHT]:
             new_x += vitesse
+            personnage_image = perso_images["droite"][perso_anim % len(perso_images["droite"])]  # Animation droite
         if keys[pygame.K_UP]:
             new_y -= vitesse
+            personnage_image = perso_images["haut"][perso_anim % len(perso_images["haut"])]  # Animation haut
         if keys[pygame.K_DOWN]:
             new_y += vitesse
+            personnage_image = perso_images["bas"][perso_anim % len(perso_images["bas"])]  # Animation bas
 
         # Utilisation des nouvelles fonctions pour vérifier les déplacements
         if bloquer_collision(new_x, personnage.y, labyrinthe):
@@ -210,13 +251,19 @@ while game_running:
         if personnage.colliderect(objectif):
             victoire = True
 
+        screen.blit(personnage_image, (personnage.x, personnage.y))
+        dessiner_vision()
+
+        # Animation continue : faire avancer l'index des images
+        perso_anim += 1
+
         pygame.display.flip()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                 pygame.quit()
 
-        clock.tick(60)
+        clock.tick(20)  # Limiter la vitesse de l'animation
 
     victoire_ecran = True
     while victoire_ecran:
@@ -229,6 +276,9 @@ while game_running:
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN and bouton_suivant_rect.collidepoint(event.pos):
                 victoire_ecran = False
+                niveau += 1
+                if niveau > 4:  # Maintenant, le jeu se termine après le niveau 4
+                    game_running = Fa
                 niveau += 1
                 if niveau > 4:  # Maintenant, le jeu se termine après le niveau 4
                     game_running = False  # Termine le jeu après le niveau 4
