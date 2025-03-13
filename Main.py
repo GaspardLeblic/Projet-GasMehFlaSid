@@ -23,6 +23,10 @@ sprite_mur_2 = pygame.image.load("Images/sprite_mur_2.jpg")
 sprite_sol_3 = pygame.image.load("Images/sprite_sol_3.jpg")
 sprite_mur_3 = pygame.image.load("Images/sprite_mur_3.jpg")
 
+# Nouveau sol et mur pour le 4ème niveau
+sprite_sol_4 = pygame.image.load("Images/sprite_sol_4.jpg")
+sprite_mur_4 = pygame.image.load("Images/sprite_mur_4.png")
+
 personnage_image = pygame.transform.scale(pygame.image.load("Images/perso_face.png"), (40, 40))
 ecran_victoire = pygame.transform.scale(pygame.image.load("Images/thank_you_for_playing.png"), (1200, 700))
 bouton_suivant_image = pygame.image.load("Images/Image_prochain_niveau.png")
@@ -39,7 +43,7 @@ clock = pygame.time.Clock()
 # Définition des labyrinthes
 def charger_labyrinthe(niveau):
     labyrinthes = [
-                                [
+        [
             "111111111111111111111111",
             "100000000010000000000001",
             "101111111010111110111101",
@@ -57,41 +61,57 @@ def charger_labyrinthe(niveau):
         ],
         [
             "111111111111111111111111",
-            "100011100011000001000001",
-            "101000001000011100011101",
-            "101111100011000101110101",
-            "100000111000010001100001",
-            "101110000011111011001111",
-            "100010111000110001100011",
-            "111010001010000100111011",
-            "100011101010110110010001",
-            "101000100010100100100111",
-            "101111101010001101101111",
-            "100110001111011001001011",
-            "110000100011001011100011",
+            "100011000011000011000001",
+            "101000011000011000011101",
+            "101111111011111111111101",
+            "100000001010000001100001",
+            "101111101011111100001111",
+            "100000101000000101100001",
+            "111110101011110100111111",
+            "100010101010000110000001",
+            "101000101010101100111111",
+            "101111101010001001100011",
+            "100110001111111011101011",
+            "110000111000000000001111",
             "111111111111111111111111",
         ],
         [
             "111111111111111111111111",
-            "100000011000001000000001",
-            "101111011011101101110101",
-            "101000010001000000010001",
-            "101010110111110110111111",
-            "100010000000000010000101",
-            "111111111101111011110101",
-            "100000000101000010000001",
-            "101110111101011110111101",
-            "101000010001000010000101",
-            "101111000111011011110111",
-            "101000011100000000010011",
-            "101011111111111111111111",
+            "100000000010000000000001",
+            "101111111010111110111101",
+            "101000100010000000000001",
+            "101010101011011111101101",
+            "100010001001010100000111",
+            "101111111101010111110001",
+            "101000000100010100011101",
+            "100011110110110101010001",
+            "111010000100100001010111",
+            "100000111101101111010011",
+            "101110110000001011011011",
+            "101000000111111000001111",
             "111111111111111111111111",
+        ],
+        # Nouveau 4ème niveau
+        [
+            "111111111111111111111111",
+            "100000001000000001000001",
+            "101111111011111101111101",
+            "101000100010000000100001",
+            "101010101011011111010101",
+            "100010001001010100000111",
+            "101111111101010111110001",
+            "101000000100010100011101",
+            "100011110110110101010101",
+            "111010000100100001010111",
+            "100000111101101111010011",
+            "101110110000001011011001",
+            "101000000111111000001101",
+            "111111111111111111111011",
         ]
     ]
     return labyrinthes[niveau - 1]
 
 # Dessiner le labyrinthe
-
 def dessiner_labyrinthe(lab, niveau):
     for y, ligne in enumerate(lab):
         for x, case in enumerate(ligne):
@@ -102,6 +122,8 @@ def dessiner_labyrinthe(lab, niveau):
                     screen.blit(pygame.transform.scale(sprite_mur_2, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 3:
                     screen.blit(pygame.transform.scale(sprite_mur_3, (case_size, case_size)), (x * case_size, y * case_size))  # Mur niveau 3
+                elif niveau == 4:
+                    screen.blit(pygame.transform.scale(sprite_mur_4, (case_size, case_size)), (x * case_size, y * case_size))  # Mur niveau 4
             elif case == "0":
                 if niveau == 1:
                     screen.blit(pygame.transform.scale(sprite_sol_1, (case_size, case_size)), (x * case_size, y * case_size))
@@ -109,10 +131,14 @@ def dessiner_labyrinthe(lab, niveau):
                     screen.blit(pygame.transform.scale(sprite_sol_2, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 3:
                     screen.blit(pygame.transform.scale(sprite_sol_3, (case_size, case_size)), (x * case_size, y * case_size))  # Sol niveau 3
+                elif niveau == 4:
+                    screen.blit(pygame.transform.scale(sprite_sol_4, (case_size, case_size)), (x * case_size, y * case_size))  # Sol niveau 4
+
+
 # Vision réduite du joueur
 def dessiner_vision():
     vision_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
-    vision_surface.fill((0, 0, 0, 255))
+    vision_surface.fill((0, 0, 0, 0))
     pygame.draw.circle(vision_surface, (0, 0, 0, 0), (personnage.x + 20, personnage.y + 20), 100)
     screen.blit(vision_surface, (0, 0))
 
@@ -204,5 +230,5 @@ while game_running:
             if event.type == pygame.MOUSEBUTTONDOWN and bouton_suivant_rect.collidepoint(event.pos):
                 victoire_ecran = False
                 niveau += 1
-                if niveau > 3:
-                    game_running = False  # Termine le jeu après le dernier niveau
+                if niveau > 4:  # Maintenant, le jeu se termine après le niveau 4
+                    game_running = False  # Termine le jeu après le niveau 4
