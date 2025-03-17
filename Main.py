@@ -119,8 +119,8 @@ def charger_labyrinthe(niveau):
             "111010000100100001010111",
             "100000111101101111010011",
             "101110110000001011011001",
-            "101000000111111000001101",
-            "111111111111111111111011",
+            "101000000111111000000001",
+            "111111111111111111111111",
         ]
     ]
     return labyrinthes[niveau - 1]
@@ -152,7 +152,7 @@ def dessiner_labyrinthe(lab, niveau):
 # Vision réduite du joueur
 def dessiner_vision():
     vision_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
-    vision_surface.fill((0, 0, 0, 255))
+    vision_surface.fill((0, 0, 0, 0))
     pygame.draw.circle(vision_surface, (0, 0, 0, 0), (personnage.x + 20, personnage.y + 20), 100)
     screen.blit(vision_surface, (0, 0))
 
