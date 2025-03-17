@@ -52,7 +52,7 @@ bouton_suivant_rect = bouton_suivant_image.get_rect(center=(600, 600))
 
 # Variables du jeu
 case_size = 50
-vitesse = 5  # Vitesse du personnage
+vitesse = 10  # Vitesse du personnage
 clock = pygame.time.Clock()
 
 # Définition des labyrinthes
@@ -156,13 +156,13 @@ def dessiner_vision():
     pygame.draw.circle(vision_surface, (0, 0, 0, 0), (personnage.x + 20, personnage.y + 20), 100)
     screen.blit(vision_surface, (0, 0))
 
-# Nouvelle fonction pour vérifier si le personnage peut se déplacer
+# Fonction pour vérifier si le personnage peut se déplacer
 def peut_deplacer(x, y, lab):
     if lab[y // case_size][x // case_size] == "0":
         return True
     return False
 
-# Nouvelle fonction pour vérifier les collisions avec les murs
+# Fonction pour vérifier les collisions avec les murs
 def bloquer_collision(x, y, lab):
     x1, y1 = x // case_size, y // case_size
     x2, y2 = (x + personnage.width) // case_size, (y + personnage.height) // case_size
@@ -191,7 +191,7 @@ while running:
 niveau = 1
 game_running = True
 
-# Liste complète des images d'animation (incluant toutes les images)
+# Liste complète des images d'animation
 perso_images = {
     "gauche": [perso_profil_gauche[0], perso_profil_gauche_marche[0], perso_profil_gauche_marche2[0],
                perso_profil_gauche[1], perso_profil_gauche_marche[1], perso_profil_gauche_marche2[1],
@@ -276,9 +276,6 @@ while game_running:
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN and bouton_suivant_rect.collidepoint(event.pos):
                 victoire_ecran = False
-                niveau += 1
-                if niveau > 4:  # Maintenant, le jeu se termine après le niveau 4
-                    game_running = Fa
                 niveau += 1
                 if niveau > 4:  # Maintenant, le jeu se termine après le niveau 4
                     game_running = False  # Termine le jeu après le niveau 4
