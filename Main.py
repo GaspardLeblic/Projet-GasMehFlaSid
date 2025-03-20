@@ -24,25 +24,26 @@ sprite_sol_3 = pygame.image.load("Images/sprite_sol_3.jpg")
 sprite_mur_3 = pygame.image.load("Images/sprite_mur_3.jpg")
 sprite_sol_4 = pygame.image.load("Images/sprite_sol_4.jpg.png")
 sprite_mur_4 = pygame.image.load("Images/sprite_mur_4.jpg")
+sprite_porte = pygame.transform.scale(pygame.image.load("Images/sprite_porte.png"), (50, 50))
 
 # Chargement des images du personnage pour les animations
-perso_face = [pygame.transform.scale(pygame.image.load(f"Images/perso_face.jpg"), (40, 40)) for i in range(1, 4)]
-perso_face_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_face_marche.jpg"), (40, 40)) for i in range(1, 4)]
-perso_face_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_face_marche2.jpg"), (40, 40)) for i in range(1, 4)]
+perso_face = [pygame.transform.scale(pygame.image.load(f"Images/perso_face.png"), (40, 40)) for i in range(1, 4)]
+perso_face_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_face_marche.png"), (40, 40)) for i in range(1, 4)]
+perso_face_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_face_marche2.png"), (40, 40)) for i in range(1, 4)]
 
-perso_dos = [pygame.transform.scale(pygame.image.load(f"Images/perso_dos.jpg"), (40, 40)) for i in range(1, 4)]
-perso_dos_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_dos_marche.jpg"), (40, 40)) for i in range(1, 4)]
-perso_dos_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_dos_marche2.jpg"), (40, 40)) for i in range(1, 4)]
+perso_dos = [pygame.transform.scale(pygame.image.load(f"Images/perso_dos.png"), (40, 40)) for i in range(1, 4)]
+perso_dos_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_dos_marche.png"), (40, 40)) for i in range(1, 4)]
+perso_dos_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_dos_marche2.png"), (40, 40)) for i in range(1, 4)]
 
-perso_profil_droit = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_droit.jpg"), (40, 40)) for i in range(1, 4)]
-perso_profil_droit_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_droit_marche.jpg"), (40, 40)) for i in range(1, 4)]
-perso_profil_droit_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_droit_marche2.jpg"), (40, 40)) for i in range(1, 4)]
+perso_profil_droit = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_droit.png"), (40, 40)) for i in range(1, 4)]
+perso_profil_droit_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_droit_marche.png"), (40, 40)) for i in range(1, 4)]
+perso_profil_droit_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_droit_marche2.png"), (40, 40)) for i in range(1, 4)]
 
-perso_profil_gauche = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_gauche.jpg"), (40, 40)) for i in range(1, 4)]
-perso_profil_gauche_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_gauche_marche.jpg"), (40, 40)) for i in range(1, 4)]
-perso_profil_gauche_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_gauche_marche2.jpg"), (40, 40)) for i in range(1, 4)]
+perso_profil_gauche = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_gauche.png"), (40, 40)) for i in range(1, 4)]
+perso_profil_gauche_marche = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_gauche_marche.png"), (40, 40)) for i in range(1, 4)]
+perso_profil_gauche_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_gauche_marche2.png"), (40, 40)) for i in range(1, 4)]
 
-personnage_image = pygame.transform.scale(pygame.image.load("Images/perso_face.jpg"), (40, 40))
+personnage_image = pygame.transform.scale(pygame.image.load("Images/perso_face.png"), (40, 40))
 ecran_victoire = pygame.transform.scale(pygame.image.load("Images/thank_you_for_playing.png"), (1200, 700))
 bouton_suivant_image = pygame.image.load("Images/Image_prochain_niveau.png")
 
@@ -70,7 +71,7 @@ def charger_labyrinthe(niveau):
             "100011110110110101010001",
             "111010000100100001010111",
             "100000111101101111010011",
-            "101110110000001011011011",
+            "101110110000001011011211",
             "101000000111111000001111",
             "111111111111111111111111",
         ],
@@ -86,7 +87,7 @@ def charger_labyrinthe(niveau):
             "100011101010110110110001",
             "101000100010100100100111",
             "101111101010001101101111",
-            "100110001111011001001011",
+            "100110001111011001001211",
             "110000100011001011100011",
             "111111111111111111111111",
         ],
@@ -102,7 +103,7 @@ def charger_labyrinthe(niveau):
             "101110111101011110111101",
             "101000010001000010000101",
             "101111000111011011110111",
-            "101000011100000000010011",
+            "101000011100000000010211",
             "101011111111111111111111",
             "111111111111111111111111",
         ],
@@ -118,7 +119,7 @@ def charger_labyrinthe(niveau):
             "100011110110110101010101",
             "111010000100100001010111",
             "100000111101101111010011",
-            "101110110000001011011001",
+            "101110110000001011011201",
             "101000000111111000000001",
             "111111111111111111111111",
         ]
@@ -127,27 +128,35 @@ def charger_labyrinthe(niveau):
 
 # Dessiner le labyrinthe
 def dessiner_labyrinthe(lab, niveau):
+    portes = []  # Liste pour stocker les coordonnées des portes
     for y, ligne in enumerate(lab):
         for x, case in enumerate(ligne):
             if case == "1":
+                # Dessiner les murs
                 if niveau == 1:
                     screen.blit(pygame.transform.scale(sprite_mur_1, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 2:
                     screen.blit(pygame.transform.scale(sprite_mur_2, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 3:
-                    screen.blit(pygame.transform.scale(sprite_mur_3, (case_size, case_size)), (x * case_size, y * case_size))  # Mur niveau 3
+                    screen.blit(pygame.transform.scale(sprite_mur_3, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 4:
-                    screen.blit(pygame.transform.scale(sprite_mur_4, (case_size, case_size)), (x * case_size, y * case_size))  # Mur niveau 4
+                    screen.blit(pygame.transform.scale(sprite_mur_4, (case_size, case_size)), (x * case_size, y * case_size))
             elif case == "0":
+                # Dessiner le sol
                 if niveau == 1:
                     screen.blit(pygame.transform.scale(sprite_sol_1, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 2:
                     screen.blit(pygame.transform.scale(sprite_sol_2, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 3:
-                    screen.blit(pygame.transform.scale(sprite_sol_3, (case_size, case_size)), (x * case_size, y * case_size))  # Sol niveau 3
+                    screen.blit(pygame.transform.scale(sprite_sol_3, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 4:
-                    screen.blit(pygame.transform.scale(sprite_sol_4, (case_size, case_size)), (x * case_size, y * case_size))  # Sol niveau 4
-
+                    screen.blit(pygame.transform.scale(sprite_sol_4, (case_size, case_size)), (x * case_size, y * case_size))
+            elif case == "2":
+                # Dessiner la porte
+                porte_rect = sprite_porte.get_rect(topleft=(x * case_size, y * case_size))
+                screen.blit(sprite_porte, (x * case_size, y * case_size))
+                portes.append(porte_rect) 
+    return portes 
 
 # Vision réduite du joueur
 def dessiner_vision():
@@ -215,14 +224,12 @@ perso_anim = 0
 
 while game_running:
     personnage = pygame.Rect(55, 55, 40, 40)
-    objectif = pygame.Rect(1050, 550, 50, 50)
 
     victoire = False
     while not victoire:
         screen.fill((0, 0, 0))
         labyrinthe = charger_labyrinthe(niveau)
-        dessiner_labyrinthe(labyrinthe, niveau)
-        pygame.draw.rect(screen, (0, 0, 0), objectif)
+        portes = dessiner_labyrinthe(labyrinthe, niveau)  # Récupérer la liste des portes
 
         keys = pygame.key.get_pressed()
         new_x, new_y = personnage.x, personnage.y
@@ -248,8 +255,10 @@ while game_running:
         if bloquer_collision(personnage.x, new_y, labyrinthe):
             personnage.y = new_y
 
-        if personnage.colliderect(objectif):
-            victoire = True
+        # Vérification de la collision avec la porte
+        for porte_rect in portes:
+            if personnage.colliderect(porte_rect):
+                victoire = True
 
         screen.blit(personnage_image, (personnage.x, personnage.y))
         dessiner_vision()
