@@ -51,6 +51,16 @@ play_button_rect = play_button_menu.get_rect(center=(260, 160))
 quit_button_rect = quit_button_image.get_rect(center=(260, 320))
 bouton_suivant_rect = bouton_suivant_image.get_rect(center=(600, 600))
 
+niveau1_button_image = pygame.transform.scale(pygame.image.load('Images/niveau1.jpg'), (200, 200))
+niveau2_button_image = pygame.transform.scale(pygame.image.load('Images/niveau2.jpg'), (200, 200))
+niveau3_button_image = pygame.transform.scale(pygame.image.load('Images/niveau3.jpg'), (200, 200))
+niveau4_button_image = pygame.transform.scale(pygame.image.load('Images/niveau4.jpg'), (200, 200))
+
+niveau1_button_rect = niveau1_button_image.get_rect(center=(600, 160))
+niveau2_button_rect = niveau2_button_image.get_rect(center=(900, 160))
+niveau3_button_rect = niveau3_button_image.get_rect(center=(600, 320))
+niveau4_button_rect = niveau4_button_image.get_rect(center=(900, 320))
+
 # Variables du jeu
 case_size = 50
 vitesse = 10  # Vitesse du personnage
@@ -71,7 +81,7 @@ def charger_labyrinthe(niveau):
             "100011110110110101010001",
             "111010000100100001010111",
             "100000111101101111010011",
-            "101110110000001011011011",
+            "101110110000001011011211",
             "101000000111111000001111",
             "111111111111111111111111",
         ],
@@ -87,7 +97,7 @@ def charger_labyrinthe(niveau):
             "100011101010110110110001",
             "101000100010100100100111",
             "101111101010001101101111",
-            "100110001111011001001011",
+            "100110001111011001001211",
             "110000100011001011100011",
             "111111111111111111111111",
         ],
@@ -103,7 +113,7 @@ def charger_labyrinthe(niveau):
             "100010111001000010111101",
             "101000010011011010000101",
             "101111000110000011110111",
-            "101000011100111000010011",
+            "101000011100111000010211",
             "101011111111111111111111",
             "111111111111111111111111",
         ],
@@ -119,7 +129,7 @@ def charger_labyrinthe(niveau):
             "111111110110110101010101",
             "110001000100100001010111",
             "111100011101101111010011",
-            "100110110000001011011001",
+            "100110110000001011011021",
             "100000000111111000000001",
             "111111111111111111111111",
         ]
@@ -155,50 +165,133 @@ def dessiner_labyrinthe(lab, niveau):
                 # Dessiner la porte
                 porte_rect = sprite_porte.get_rect(topleft=(x * case_size, y * case_size))
                 screen.blit(sprite_porte, (x * case_size, y * case_size))
-                portes.append(porte_rect) 
-    return portes 
-
-# Vision réduite du joueur
-def dessiner_vision():
-    vision_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
-    vision_surface.fill((0, 0, 0, 255))
-    pygame.draw.circle(vision_surface, (0, 0, 0, 0), (personnage.x + 20, personnage.y + 20), 100)
-    screen.blit(vision_surface, (0, 0))
+                portes.append(porte_rect)
+    return portes
 
 # Fonction pour vérifier si le personnage peut se déplacer
-def peut_deplacer(x, y, lab):
-    if lab[y // case_size][x // case_size] == "0":
+def peut_deplacer(x, y, lab, largeur, hauteur):
+    """
+    Vérifie si le personnage peut se déplacer à la position donnée.
+    """
+    # Convertir les coordonnées du personnage en coordonnées de grille
+    case_x1 = x // case_size
+    case_y1 = y // case_size
+    case_x2 = (x + largeur - 1) // case_size
+    case_y2 = (y + hauteur - 1) // case_size
+
+    # Vérifier les 4 coins du personnage pour éviter les traversées
+    if 0 <= case_y1 < len(lab) and 0 <= case_x1 < len(lab[0]):
+        if lab[case_y1][case_x1] == "1":
+            return False
+    if 0 <= case_y1 < len(lab) and 0 <= case_x2 < len(lab[0]):
+        if lab[case_y1][case_x2] == "1":
+            return False
+    if 0 <= case_y2 < len(lab) and 0 <= case_x1 < len(lab[0]):
+        if lab[case_y2][case_x1] == "1":
+            return False
+    if 0 <= case_y2 < len(lab) and 0 <= case_x2 < len(lab[0]):
+        if lab[case_y2][case_x2] == "1":
+            return False
+
+    return True
+def bloquer_collision(new_x, new_y, lab, personnage):
+    case_x = new_x // case_size
+    case_y = new_y // case_size
+
+    # Vérifier si la position est dans les limites du labyrinthe
+    if 0 <= case_y < len(lab) and 0 <= case_x < len(lab[0]):
+        if lab[case_y][case_x] == "1":  # Si c'est un mur
+            return True
+
+    # Vérifier si le personnage dépasse le bord droit ou bas de l'écran
+    if new_x + personnage.width > screen.get_width():  # Collision à droite
         return True
+    if new_y + personnage.height > screen.get_height():  # Collision en bas
+        return True
+    if new_x < 0:  # Collision à gauche
+        return True
+    if new_y < 0:  # Collision en haut
+        return True
+
     return False
 
-# Fonction pour vérifier les collisions avec les murs
-def bloquer_collision(x, y, lab):
-    x1, y1 = x // case_size, y // case_size
-    x2, y2 = (x + personnage.width) // case_size, (y + personnage.height) // case_size
-    if lab[y1][x1] == "1" or lab[y1][x2] == "1" or lab[y2][x1] == "1" or lab[y2][x2] == "1":
-        return False
-    return True
-
-# Boucle principale du menu
-running = True
-while running:
+# Fonction pour retourner au menu après la victoire
+def retour_menu():
+    screen.fill((0, 0, 0))
     screen.blit(background, (0, 0))
-    screen.blit(play_button_menu, play_button_rect)
-    screen.blit(quit_button_image, quit_button_rect)
-    pygame.display.flip()
+    pygame.display.update()
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load("Musique/Fort Boyard Main Theme.mp3")
+    pygame.mixer.music.play(-1)
+    return menu()
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-            pygame.quit()
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if play_button_rect.collidepoint(event.pos):
-                running = False  # Sort du menu pour commencer le jeu
-            if quit_button_rect.collidepoint(event.pos):
+# Menu principal
+def menu():
+    continuer = True
+    while continuer:
+        screen.fill((0, 0, 0))
+        screen.blit(background, (0, 0))
+        screen.blit(play_button_menu, play_button_rect)
+        screen.blit(quit_button_image, quit_button_rect)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 pygame.quit()
+                exit()
 
-# Boucle principale du jeu
-niveau = 1
-game_running = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if play_button_rect.collidepoint(event.pos):
+                    choisir_niveau()
+
+                if quit_button_rect.collidepoint(event.pos):
+                    pygame.quit()
+                    exit()
+        pygame.display.update()
+
+# Choisir le niveau
+def choisir_niveau():
+    continuer = True
+    while continuer:
+        screen.fill((0, 0, 0))
+        screen.blit(niveau1_button_image, niveau1_button_rect)
+        screen.blit(niveau2_button_image, niveau2_button_rect)
+        screen.blit(niveau3_button_image, niveau3_button_rect)
+        screen.blit(niveau4_button_image, niveau4_button_rect)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if niveau1_button_rect.collidepoint(event.pos):
+                    niveau = 1
+                    lab = charger_labyrinthe(niveau)
+                    play_game(niveau, lab)
+
+                elif niveau2_button_rect.collidepoint(event.pos):
+                    niveau = 2
+                    lab = charger_labyrinthe(niveau)
+                    play_game(niveau, lab)
+
+                elif niveau3_button_rect.collidepoint(event.pos):
+                    niveau = 3
+                    lab = charger_labyrinthe(niveau)
+                    play_game(niveau, lab)
+
+                elif niveau4_button_rect.collidepoint(event.pos):
+                    niveau = 4
+                    lab = charger_labyrinthe(niveau)
+                    play_game(niveau, lab)
+
+        pygame.display.update()
+
+# Fonction pour dessiner la vision autour du joueur
+def dessiner_vision(personnage):
+    vision_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
+    vision_surface.fill((0, 0, 0, 255))  # Remplir l'écran de noir avec transparence
+    pygame.draw.circle(vision_surface, (0, 0, 0, 0), (personnage.x + 20, personnage.y + 20), 100)  # Créer un cercle transparent autour du personnage
+    screen.blit(vision_surface, (0, 0))  # Appliquer la surface de vision à l'écran
 
 # Liste complète des images d'animation
 perso_images = {
@@ -221,70 +314,86 @@ perso_images = {
 
 # Initialisation de l'index d'animation
 perso_anim = 0
+vitesse = 10  # vitesse du personnage
 
-while game_running:
-    personnage = pygame.Rect(55, 55, 40, 40)
+def play_game(niveau, lab):
+    global perso_anim
+    personnage = pygame.Rect(55, 55, 40, 40)  # Position de départ du personnage
+    portes = dessiner_labyrinthe(lab, niveau)  # Dessiner le labyrinthe et obtenir les portes
 
-    victoire = False
-    while not victoire:
+    # Boucle du jeu
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        # Remplir l'écran avec une couleur de fond
         screen.fill((0, 0, 0))
-        labyrinthe = charger_labyrinthe(niveau)
-        portes = dessiner_labyrinthe(labyrinthe, niveau)  # Récupérer la liste des portes
 
+        # Charger les touches et définir la direction
         keys = pygame.key.get_pressed()
         new_x, new_y = personnage.x, personnage.y
-        personnage_image = perso_face[0]  # Image par défaut si aucune direction n'est enfoncée
+        personnage_image = perso_images["bas"][0]  # Image par défaut (face vers le bas)
 
-        # Si une touche est pressée, choisir l'image correspondante et se déplacer
+        # Choisir l'image et la direction en fonction de la touche pressée
         if keys[pygame.K_LEFT]:
             new_x -= vitesse
-            personnage_image = perso_images["gauche"][perso_anim % len(perso_images["gauche"])]  # Animation gauche
+            if peut_deplacer(new_x, personnage.y, lab, personnage.width, personnage.height):  # Vérifier collision gauche
+                personnage_image = perso_images["gauche"][perso_anim % len(perso_images["gauche"])]  # Animation gauche
+            else:
+                new_x = personnage.x  # Annuler déplacement si collision
+
         if keys[pygame.K_RIGHT]:
             new_x += vitesse
-            personnage_image = perso_images["droite"][perso_anim % len(perso_images["droite"])]  # Animation droite
+            if peut_deplacer(new_x, personnage.y, lab, personnage.width, personnage.height):  # Vérifier collision droite
+                personnage_image = perso_images["droite"][perso_anim % len(perso_images["droite"])]  # Animation droite
+            else:
+                new_x = personnage.x  # Annuler déplacement si collision
+
         if keys[pygame.K_UP]:
             new_y -= vitesse
-            personnage_image = perso_images["haut"][perso_anim % len(perso_images["haut"])]  # Animation haut
+            if peut_deplacer(personnage.x, new_y, lab, personnage.width, personnage.height):  # Vérifier collision haut
+                personnage_image = perso_images["haut"][perso_anim % len(perso_images["haut"])]  # Animation haut
+            else:
+                new_y = personnage.y  # Annuler déplacement si collision
+
         if keys[pygame.K_DOWN]:
             new_y += vitesse
-            personnage_image = perso_images["bas"][perso_anim % len(perso_images["bas"])]  # Animation bas
-
-        # Utilisation des nouvelles fonctions pour vérifier les déplacements
-        if bloquer_collision(new_x, personnage.y, labyrinthe):
-            personnage.x = new_x
-        if bloquer_collision(personnage.x, new_y, labyrinthe):
-            personnage.y = new_y
+            if peut_deplacer(personnage.x, new_y, lab, personnage.width, personnage.height):  # Vérifier collision bas
+                personnage_image = perso_images["bas"][perso_anim % len(perso_images["bas"])]  # Animation bas
+            else:
+                new_y = personnage.y  # Annuler déplacement si collision
 
         # Vérification de la collision avec la porte
         for porte_rect in portes:
             if personnage.colliderect(porte_rect):
-                victoire = True
+                retour_menu()  # Revenir au menu si la porte est atteinte
 
-        screen.blit(personnage_image, (personnage.x, personnage.y))
-        dessiner_vision()
+        # Mettre à jour les positions du personnage si pas de collision
+        personnage.x = new_x
+        personnage.y = new_y
+
+        # Dessiner le labyrinthe
+        dessiner_labyrinthe(lab, niveau)
+        screen.blit(personnage_image, (personnage.x, personnage.y))  # Dessiner l'image du personnage
+
+        # Dessiner la vision autour du personnage
+        dessiner_vision(personnage)
 
         # Animation continue : faire avancer l'index des images
         perso_anim += 1
 
+        # Mettre à jour l'écran
         pygame.display.flip()
 
+        # Gérer la sortie et les événements
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                 pygame.quit()
+                exit()
 
         clock.tick(20)  # Limiter la vitesse de l'animation
 
-    victoire_ecran = True
-    while victoire_ecran:
-        screen.blit(ecran_victoire, (0, 0))
-        screen.blit(bouton_suivant_image, bouton_suivant_rect)
-        pygame.display.flip()
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-                pygame.quit()
-            if event.type == pygame.MOUSEBUTTONDOWN and bouton_suivant_rect.collidepoint(event.pos):
-                victoire_ecran = False
-                niveau += 1
-                if niveau > 4:  # Maintenant, le jeu se termine après le niveau 4
-                    game_running = False  # Termine le jeu après le niveau 4
+menu()
