@@ -56,10 +56,10 @@ niveau2_button_image = pygame.transform.scale(pygame.image.load('Images/niveau2.
 niveau3_button_image = pygame.transform.scale(pygame.image.load('Images/niveau3.jpg'), (200, 200))
 niveau4_button_image = pygame.transform.scale(pygame.image.load('Images/niveau4.jpg'), (200, 200))
 
-niveau1_button_rect = niveau1_button_image.get_rect(center=(600, 160))
-niveau2_button_rect = niveau2_button_image.get_rect(center=(900, 160))
-niveau3_button_rect = niveau3_button_image.get_rect(center=(600, 320))
-niveau4_button_rect = niveau4_button_image.get_rect(center=(900, 320))
+niveau1_button_rect = niveau1_button_image.get_rect(center=(300, 200))
+niveau2_button_rect = niveau2_button_image.get_rect(center=(600, 200))
+niveau3_button_rect = niveau3_button_image.get_rect(center=(900, 200))
+niveau4_button_rect = niveau4_button_image.get_rect(center=(450, 500))
 
 # Variables du jeu
 case_size = 50
@@ -97,8 +97,8 @@ def charger_labyrinthe(niveau):
             "100011101010110110110001",
             "101000100010100100100111",
             "101111101010001101101111",
-            "100110001111011001001211",
-            "110000100011001011100011",
+            "100110001111011001001011",
+            "110000100011021011100011",
             "111111111111111111111111",
         ],
         [
@@ -137,6 +137,7 @@ def charger_labyrinthe(niveau):
     return labyrinthes[niveau - 1]
 
 # Dessiner le labyrinthe
+# Dessiner le labyrinthe
 def dessiner_labyrinthe(lab, niveau):
     portes = []  # Liste pour stocker les coordonnées des portes
     for y, ligne in enumerate(lab):
@@ -162,11 +163,27 @@ def dessiner_labyrinthe(lab, niveau):
                 elif niveau == 4:
                     screen.blit(pygame.transform.scale(sprite_sol_4, (case_size, case_size)), (x * case_size, y * case_size))
             elif case == "2":
-                # Dessiner la porte
+                # Dessiner la porte sur le sol
                 porte_rect = sprite_porte.get_rect(topleft=(x * case_size, y * case_size))
+
+                # D'abord, dessiner le sol sous la porte
+                if niveau == 1:
+                    screen.blit(pygame.transform.scale(sprite_sol_1, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 2:
+                    screen.blit(pygame.transform.scale(sprite_sol_2, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 3:
+                    screen.blit(pygame.transform.scale(sprite_sol_3, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 4:
+                    screen.blit(pygame.transform.scale(sprite_sol_4, (case_size, case_size)), (x * case_size, y * case_size))
+
+                # Ensuite, dessiner la porte
                 screen.blit(sprite_porte, (x * case_size, y * case_size))
                 portes.append(porte_rect)
+
     return portes
+
+
+
 
 # Fonction pour vérifier si le personnage peut se déplacer
 def peut_deplacer(x, y, lab, largeur, hauteur):
