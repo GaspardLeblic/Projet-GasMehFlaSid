@@ -1,6 +1,5 @@
 import pygame
-import os
-os.chdir("C:/Users/MEHDI/Documents/GitHub/Projet-GasMehFlaSid")
+
 pygame.init()
 pygame.mixer.init()
 
