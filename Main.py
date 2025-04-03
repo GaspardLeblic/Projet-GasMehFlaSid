@@ -1,11 +1,12 @@
-import pygame
-pygame.init()
-pygame.mixer.init()
-
 # Chargement de la musique
-pygame.mixer.music.load("Musique/Fort Boyard Main Theme.mp3")
+pygame.mixer.music.load("Musique/musique_menu.mp3")
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
+#pygame.mixer.music.load("Musique/musique_niveau_1.mp3")
+#pygame.mixer.music.load("Musique/musique_niveau_2.mp3")
+#pygame.mixer.music.load("Musique/musique_niveau_3.mp3")
+#pygame.mixer.music.load("Musique/musique_niveau_4.mp3")
+#pygame.mixer.music.load("Musique/musique_niveau_5.mp3")
 
 # Fenêtre du jeu
 pygame.display.set_caption("The maze")
@@ -22,7 +23,7 @@ sprite_sol_2 = pygame.image.load("Images/sprite_sol_2.jpg")
 sprite_mur_2 = pygame.image.load("Images/sprite_mur_2.jpg")
 sprite_sol_3 = pygame.image.load("Images/sprite_sol_3.jpg")
 sprite_mur_3 = pygame.image.load("Images/sprite_mur_3.jpg")
-sprite_sol_4 = pygame.image.load("Images/sprite_sol_4.png")
+sprite_sol_4 = pygame.image.load("Images/sprite_sol_4.jpg.png")
 sprite_mur_4 = pygame.image.load("Images/sprite_mur_4.jpg")
 sprite_sol_5 = pygame.image.load("Images/sprite_sol_5.png")
 sprite_mur_5 = pygame.image.load("Images/sprite_mur_5.png")
@@ -442,6 +443,9 @@ def play_game(niveau, lab):
                 exit()
 
         clock.tick(20)  # Limiter la vitesse de l'animation
+
+
+menu()
 
 
 menu()
