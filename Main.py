@@ -1,16 +1,13 @@
-# Chargement de la musique
-pygame.mixer.music.load("Musique/musique_menu.mp3")
-pygame.mixer.music.set_volume(0.5)
-pygame.mixer.music.play(-1)
-#pygame.mixer.music.load("Musique/musique_niveau_1.mp3")
-#pygame.mixer.music.load("Musique/musique_niveau_2.mp3")
-#pygame.mixer.music.load("Musique/musique_niveau_3.mp3")
-#pygame.mixer.music.load("Musique/musique_niveau_4.mp3")
-#pygame.mixer.music.load("Musique/musique_niveau_5.mp3")
+import pygame
+import os
+os.chdir("C:/Users/MEHDI/Documents/GitHub/Projet-GasMehFlaSid")
+pygame.init()
+pygame.mixer.init()
 
 # Fenêtre du jeu
-pygame.display.set_caption("The maze")
+pygame.display.set_caption("THE MAZE")
 screen = pygame.display.set_mode((1200, 700))
+
 
 # Chargement des images
 background = pygame.image.load("Images/Image d'accueil.jpg")
@@ -23,7 +20,7 @@ sprite_sol_2 = pygame.image.load("Images/sprite_sol_2.jpg")
 sprite_mur_2 = pygame.image.load("Images/sprite_mur_2.jpg")
 sprite_sol_3 = pygame.image.load("Images/sprite_sol_3.jpg")
 sprite_mur_3 = pygame.image.load("Images/sprite_mur_3.jpg")
-sprite_sol_4 = pygame.image.load("Images/sprite_sol_4.jpg.png")
+sprite_sol_4 = pygame.image.load("Images/sprite_sol_4.png")
 sprite_mur_4 = pygame.image.load("Images/sprite_mur_4.jpg")
 sprite_sol_5 = pygame.image.load("Images/sprite_sol_5.png")
 sprite_mur_5 = pygame.image.load("Images/sprite_mur_5.png")
@@ -47,12 +44,10 @@ perso_profil_gauche_marche = [pygame.transform.scale(pygame.image.load(f"Images/
 perso_profil_gauche_marche2 = [pygame.transform.scale(pygame.image.load(f"Images/perso_profil_gauche_marche2.png"), (40, 40)) for i in range(1, 4)]
 
 personnage_image = pygame.transform.scale(pygame.image.load("Images/perso_face.png"), (40, 40))
-ecran_victoire = pygame.transform.scale(pygame.image.load("Images/thank_you_for_playing.png"), (1200, 700))
-bouton_suivant_image = pygame.image.load("Images/Image_prochain_niveau.png")
 
 play_button_rect = play_button_menu.get_rect(center=(260, 160))
 quit_button_rect = quit_button_image.get_rect(center=(260, 320))
-bouton_suivant_rect = bouton_suivant_image.get_rect(center=(600, 600))
+
 
 niveau1_button_image = pygame.transform.scale(pygame.image.load('Images/niveau1.png'), (200, 200))
 niveau2_button_image = pygame.transform.scale(pygame.image.load('Images/niveau2.png'), (200, 200))
@@ -157,7 +152,7 @@ def charger_labyrinthe(niveau):
     ]
     return labyrinthes[niveau - 1]
 
-# Dessiner le labyrinthe
+
 # Dessiner le labyrinthe
 def dessiner_labyrinthe(lab, niveau):
     portes = []  # Liste pour stocker les coordonnées des portes
@@ -264,9 +259,7 @@ def retour_menu():
     screen.fill((0, 0, 0))
     screen.blit(background, (0, 0))
     pygame.display.update()
-    pygame.mixer.music.stop()
-    pygame.mixer.music.load("Musique/Fort Boyard Main Theme.mp3")
-    pygame.mixer.music.play(-1)
+    
     return menu()
 
 # Menu principal
@@ -447,5 +440,3 @@ def play_game(niveau, lab):
 
 menu()
 
-
-menu()
