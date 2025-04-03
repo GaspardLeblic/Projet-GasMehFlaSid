@@ -24,6 +24,8 @@ sprite_sol_3 = pygame.image.load("Images/sprite_sol_3.jpg")
 sprite_mur_3 = pygame.image.load("Images/sprite_mur_3.jpg")
 sprite_sol_4 = pygame.image.load("Images/sprite_sol_4.jpg.png")
 sprite_mur_4 = pygame.image.load("Images/sprite_mur_4.jpg")
+sprite_sol_5 = pygame.image.load("Images/sprite_sol_5.png")
+sprite_mur_5 = pygame.image.load("Images/sprite_mur_5.png")
 sprite_porte = pygame.transform.scale(pygame.image.load("Images/sprite_porte.png"), (50, 50))
 
 # Chargement des images du personnage pour les animations
@@ -55,11 +57,13 @@ niveau1_button_image = pygame.transform.scale(pygame.image.load('Images/niveau1.
 niveau2_button_image = pygame.transform.scale(pygame.image.load('Images/niveau2.png'), (200, 200))
 niveau3_button_image = pygame.transform.scale(pygame.image.load('Images/niveau3.png'), (200, 200))
 niveau4_button_image = pygame.transform.scale(pygame.image.load('Images/niveau4.png'), (200, 200))
+niveau5_button_image = pygame.transform.scale(pygame.image.load('Images/niveau5.png'), (200, 200))
 
 niveau1_button_rect = niveau1_button_image.get_rect(center=(300, 200))
 niveau2_button_rect = niveau2_button_image.get_rect(center=(600, 200))
 niveau3_button_rect = niveau3_button_image.get_rect(center=(900, 200))
 niveau4_button_rect = niveau4_button_image.get_rect(center=(450, 500))
+niveau5_button_rect = niveau5_button_image.get_rect(center=(750, 500))
 
 # Variables du jeu
 case_size = 50
@@ -108,29 +112,45 @@ def charger_labyrinthe(niveau):
             "101000010001000000010001",
             "101010110111110110111111",
             "100010000000010010000101",
-            "111111101101011011110101",
-            "101000001101000010000001",
-            "100010111001101110111101",
-            "101000010011000010000101",
-            "101111000110011011110111",
-            "101000011110110001010001",
-            "101211110000100100011101",
+            "111111101101001011110101",
+            "101000001101101010000001",
+            "100010111001000010111101",
+            "101000010011011010000101",
+            "101111000110000011110111",
+            "101000011100111000010211",
+            "101011111111111111111111",
             "111111111111111111111111",
         ],
         [
             "111111111111111111111111",
             "100000001000000001100001",
-            "101111111011111101121101",
+            "101111111011111101100101",
             "101000100010000000111101",
             "100010101011011111110001",
             "101110001001010100000111",
             "100011111101010111110001",
             "101000000100010100011101",
             "111111110110110101010101",
-            "100001000100100001010101",
-            "111100011101101111000101",
-            "101110110000001011010101",
-            "100000000111111000010001",
+            "110001000100100001010111",
+            "111100011101101111010011",
+            "100110110000001011011021",
+            "100000000111111000000001",
+            "111111111111111111111111",
+        ],
+        [
+            "111111111111111111111111",
+            "100000001000000001100001",
+            "101111111011111101100101",
+            "101000100010000000111101",
+            "100010101011011111110001",
+            "101110001001010100000111",
+            "100011111101010111110001",
+            "101000000100010100011101",
+            "111111110110110101010101",
+            "110001000100100001010111",
+            "111100011101101111010011",
+            "100110110000001011011021",
+            "100000000111111000000001",
             "111111111111111111111111",
         ]
     ]
@@ -152,6 +172,8 @@ def dessiner_labyrinthe(lab, niveau):
                     screen.blit(pygame.transform.scale(sprite_mur_3, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 4:
                     screen.blit(pygame.transform.scale(sprite_mur_4, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 5:
+                    screen.blit(pygame.transform.scale(sprite_mur_5, (case_size, case_size)), (x * case_size, y * case_size))
             elif case == "0":
                 # Dessiner le sol
                 if niveau == 1:
@@ -162,6 +184,8 @@ def dessiner_labyrinthe(lab, niveau):
                     screen.blit(pygame.transform.scale(sprite_sol_3, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 4:
                     screen.blit(pygame.transform.scale(sprite_sol_4, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 5:
+                    screen.blit(pygame.transform.scale(sprite_sol_5, (case_size, case_size)), (x * case_size, y * case_size))
             elif case == "2":
                 # Dessiner la porte sur le sol
                 porte_rect = sprite_porte.get_rect(topleft=(x * case_size, y * case_size))
@@ -175,6 +199,8 @@ def dessiner_labyrinthe(lab, niveau):
                     screen.blit(pygame.transform.scale(sprite_sol_3, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 4:
                     screen.blit(pygame.transform.scale(sprite_sol_4, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 5:
+                    screen.blit(pygame.transform.scale(sprite_sol_5, (case_size, case_size)), (x * case_size, y * case_size))
 
                 # Ensuite, dessiner la porte
                 screen.blit(sprite_porte, (x * case_size, y * case_size))
@@ -274,6 +300,7 @@ def choisir_niveau():
         screen.blit(niveau2_button_image, niveau2_button_rect)
         screen.blit(niveau3_button_image, niveau3_button_rect)
         screen.blit(niveau4_button_image, niveau4_button_rect)
+        screen.blit(niveau5_button_image, niveau5_button_rect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -298,6 +325,10 @@ def choisir_niveau():
 
                 elif niveau4_button_rect.collidepoint(event.pos):
                     niveau = 4
+                    lab = charger_labyrinthe(niveau)
+                    play_game(niveau, lab)
+                elif niveau5_button_rect.collidepoint(event.pos):
+                    niveau = 5
                     lab = charger_labyrinthe(niveau)
                     play_game(niveau, lab)
 
