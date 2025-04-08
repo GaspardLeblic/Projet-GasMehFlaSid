@@ -1,17 +1,25 @@
 import pygame
+import os
+
+base_path = os.path.dirname(os.path.abspath(__file__))
+os.chdir(base_path)
 
 pygame.init()
 pygame.mixer.init()
 
 # Fenêtre du jeu
 pygame.display.set_caption("THE MAZE")
-screen = pygame.display.set_mode((1200, 700))
+screen = pygame.display.set_mode((1200, 800),pygame.RESIZABLE )
 
+#Chargement effet sonore
+effet_clef = pygame.mixer.Sound('Musiques/effet_sonore_clef.wav')
 
 # Chargement des images
-background = pygame.image.load("Images/Image d'accueil.jpg")
-play_button_menu = pygame.transform.scale(pygame.image.load('Images/Bouton Play.PNG'), (300, 300))
-quit_button_image = pygame.transform.scale(pygame.image.load('Images/Bouton Quitter.PNG'), (300, 240))
+background = pygame.image.load("Images/background.png")
+background_2 = pygame.image.load("Images/background_2.png")
+play_button_menu = pygame.transform.scale(pygame.image.load('Images/start.PNG'), (250, 100))
+quit_button_menu = pygame.transform.scale(pygame.image.load('Images/exit.PNG'), (250, 100))
+levels_button_menu = pygame.transform.scale(pygame.image.load('Images/levels.PNG'), (250, 100))
 
 sprite_sol_1 = pygame.image.load("Images/sprite_sol.jpg")
 sprite_mur_1 = pygame.image.load("Images/sprite_mur.jpg")
@@ -23,7 +31,9 @@ sprite_sol_4 = pygame.image.load("Images/sprite_sol_4.png")
 sprite_mur_4 = pygame.image.load("Images/sprite_mur_4.jpg")
 sprite_sol_5 = pygame.image.load("Images/sprite_sol_5.png")
 sprite_mur_5 = pygame.image.load("Images/sprite_mur_5.png")
+
 sprite_porte = pygame.transform.scale(pygame.image.load("Images/sprite_porte.png"), (50, 50))
+sprite_clef = pygame.transform.scale(pygame.image.load("Images/sprite_clef.png"), (50, 50))
 
 # Chargement des images du personnage pour les animations
 perso_face = [pygame.transform.scale(pygame.image.load(f"Images/perso_face.png"), (40, 40)) for i in range(1, 4)]
@@ -44,21 +54,25 @@ perso_profil_gauche_marche2 = [pygame.transform.scale(pygame.image.load(f"Images
 
 personnage_image = pygame.transform.scale(pygame.image.load("Images/perso_face.png"), (40, 40))
 
+#Chargement des images des boutons
 play_button_rect = play_button_menu.get_rect(center=(260, 160))
-quit_button_rect = quit_button_image.get_rect(center=(260, 320))
+levels_button_rect = levels_button_menu.get_rect(center=(260, 300))
+quit_button_rect = quit_button_menu.get_rect(center=(260, 440))
 
 
-niveau1_button_image = pygame.transform.scale(pygame.image.load('Images/niveau1.png'), (200, 200))
-niveau2_button_image = pygame.transform.scale(pygame.image.load('Images/niveau2.png'), (200, 200))
-niveau3_button_image = pygame.transform.scale(pygame.image.load('Images/niveau3.png'), (200, 200))
-niveau4_button_image = pygame.transform.scale(pygame.image.load('Images/niveau4.png'), (200, 200))
-niveau5_button_image = pygame.transform.scale(pygame.image.load('Images/niveau5.png'), (200, 200))
+niveau1_button_image = pygame.transform.scale(pygame.image.load('Images/level1.png'), (250, 100))
+niveau2_button_image = pygame.transform.scale(pygame.image.load('Images/level2.png'), (250, 100))
+niveau3_button_image = pygame.transform.scale(pygame.image.load('Images/level3.png'), (250, 100))
+niveau4_button_image = pygame.transform.scale(pygame.image.load('Images/level4.png'), (250, 100))
+niveau5_button_image = pygame.transform.scale(pygame.image.load('Images/level5.png'), (250, 100))
+retour_menu_button_image = pygame.transform.scale(pygame.image.load('Images/retour_menu.png'), (250, 100))
 
-niveau1_button_rect = niveau1_button_image.get_rect(center=(300, 200))
-niveau2_button_rect = niveau2_button_image.get_rect(center=(600, 200))
-niveau3_button_rect = niveau3_button_image.get_rect(center=(900, 200))
-niveau4_button_rect = niveau4_button_image.get_rect(center=(450, 500))
-niveau5_button_rect = niveau5_button_image.get_rect(center=(750, 500))
+niveau1_button_rect = niveau1_button_image.get_rect(center=(575, 300))
+niveau2_button_rect = niveau2_button_image.get_rect(center=(575, 400))
+niveau3_button_rect = niveau3_button_image.get_rect(center=(575, 500))
+niveau4_button_rect = niveau4_button_image.get_rect(center=(575, 600))
+niveau5_button_rect = niveau5_button_image.get_rect(center=(575, 700))
+retour_menu_button_rect = retour_menu_button_image.get_rect(center=(200, 700))
 
 # Variables du jeu
 case_size = 50
@@ -68,23 +82,27 @@ clock = pygame.time.Clock()
 # Définition des labyrinthes
 def charger_labyrinthe(niveau):
     labyrinthes = [
-                                        [
+                                       [
+            #LABYRINTH 1
             "111111111111111111111111",
             "100000000010000000000001",
             "101111111010111110111101",
             "101000100010000000000001",
-            "101010101011011111101101",
+            "101010101011011111101131",
             "100010001001010100000111",
             "101111111101010111110001",
             "101000000100010100011101",
             "100011110110110101010001",
             "111010000100100001010111",
             "100000111101101111010011",
-            "101110110000001011011211",
-            "101000000111111000001111",
+            "101110110000001011011011",
+            "101000000111111000001011",
+            "111110111111111111111011",
+            "100000000010000000000021",
             "111111111111111111111111",
         ],
         [
+            #LABYRINTH 2
             "111111111111111111111111",
             "100011100011000001000001",
             "101000001000011100011101",
@@ -92,15 +110,18 @@ def charger_labyrinthe(niveau):
             "100000111000010001100001",
             "101110000011111011001111",
             "100010111000110001100011",
-            "111010001010000100111011",
+            "111010001010030100111011",
             "100011101010110110110001",
             "101000100010100100100111",
             "101111101010001101101111",
             "100110001111011001001011",
-            "110000100011021011100011",
+            "110000100011001011100011",
+            "111101111111101111111111",
+            "100000001000020000000001",
             "111111111111111111111111",
         ],
         [
+            #LABYRINTH 3
             "111111111111111111111111",
             "100000011000001000000001",
             "101111011011101101110101",
@@ -113,10 +134,13 @@ def charger_labyrinthe(niveau):
             "101000010011000010000101",
             "101111000110011011110111",
             "101000011110110001010001",
-            "101211110000100100011101",
-            "111111111111111111111111",
+            "101101110000100100011131",
+            "111111110111111111111111",
+            "120000000000000100000001",
+            "111111111111111111111111"
         ],
         [
+            #LABYRINTH 4
             "111111111111111111111111",
             "100000001000000001100001",
             "101111111011111101121101",
@@ -128,33 +152,39 @@ def charger_labyrinthe(niveau):
             "111111110110110101010101",
             "100001000100100001010101",
             "111100011101101111000101",
-            "101110110000001011010101",
+            "101110110000031011010101",
             "100000000111111000010001",
+            "111011111111111101111111",
+            "100000000000000000000001",
             "111111111111111111111111",
         ],
         [
+            #LABYRINTH 5
             "111111111111111111111111",
             "100000001000000001100001",
             "101111111011111101100101",
             "101000100010000000111101",
-            "100010101011011111110001",
-            "101110001001010100000111",
+            "100010101011011110110001",
+            "101110001001000100000111",
             "100011111101010111110001",
             "101000000100010100011101",
             "111111110110110101010101",
             "110001000100100001010111",
             "111100011101101111010011",
             "100110110000001011011021",
-            "100000000111111000000001",
+            "130000000111011000000001",
+            "101111111111011111111111",
+            "100000000000000000000001",
             "111111111111111111111111",
         ]
     ]
     return labyrinthes[niveau - 1]
 
 
-# Dessiner le labyrinthe
+# Dessiner les labyrinthes
 def dessiner_labyrinthe(lab, niveau):
     portes = []  # Liste pour stocker les coordonnées des portes
+    clefs = [] # Liste pour stocker les coordonnées des clefs
     for y, ligne in enumerate(lab):
         for x, case in enumerate(ligne):
             if case == "1":
@@ -169,6 +199,7 @@ def dessiner_labyrinthe(lab, niveau):
                     screen.blit(pygame.transform.scale(sprite_mur_4, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 5:
                     screen.blit(pygame.transform.scale(sprite_mur_5, (case_size, case_size)), (x * case_size, y * case_size))
+
             elif case == "0":
                 # Dessiner le sol
                 if niveau == 1:
@@ -181,6 +212,7 @@ def dessiner_labyrinthe(lab, niveau):
                     screen.blit(pygame.transform.scale(sprite_sol_4, (case_size, case_size)), (x * case_size, y * case_size))
                 elif niveau == 5:
                     screen.blit(pygame.transform.scale(sprite_sol_5, (case_size, case_size)), (x * case_size, y * case_size))
+
             elif case == "2":
                 # Dessiner la porte sur le sol
                 porte_rect = sprite_porte.get_rect(topleft=(x * case_size, y * case_size))
@@ -201,8 +233,28 @@ def dessiner_labyrinthe(lab, niveau):
                 screen.blit(sprite_porte, (x * case_size, y * case_size))
                 portes.append(porte_rect)
 
-    return portes
 
+            elif case == "3":
+                # Dessiner la clef sur le sol
+                clef_rect = sprite_clef.get_rect(topleft=(x * case_size, y * case_size))
+
+                # D'abord, dessiner la clef sous la porte
+                if niveau == 1:
+                    screen.blit(pygame.transform.scale(sprite_sol_1, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 2:
+                    screen.blit(pygame.transform.scale(sprite_sol_2, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 3:
+                    screen.blit(pygame.transform.scale(sprite_sol_3, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 4:
+                    screen.blit(pygame.transform.scale(sprite_sol_4, (case_size, case_size)), (x * case_size, y * case_size))
+                elif niveau == 5:
+                    screen.blit(pygame.transform.scale(sprite_sol_5, (case_size, case_size)), (x * case_size, y * case_size))
+
+                # Ensuite, dessiner la porte
+                screen.blit(sprite_clef, (x * case_size, y * case_size))
+                clefs.append(clef_rect)
+
+    return portes, clefs
 
 
 
@@ -253,22 +305,18 @@ def bloquer_collision(new_x, new_y, lab, personnage):
 
     return False
 
-# Fonction pour retourner au menu après la victoire
-def retour_menu():
-    screen.fill((0, 0, 0))
-    screen.blit(background, (0, 0))
-    pygame.display.update()
-    
-    return menu()
 
 # Menu principal
 def menu():
-    continuer = True
-    while continuer:
+    pygame.mixer.music.load('Musiques/musique_menu.mp3')
+    pygame.mixer.music.play(-1)
+
+    while True:
         screen.fill((0, 0, 0))
         screen.blit(background, (0, 0))
         screen.blit(play_button_menu, play_button_rect)
-        screen.blit(quit_button_image, quit_button_rect)
+        screen.blit(quit_button_menu, quit_button_rect)
+        screen.blit(levels_button_menu, levels_button_rect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -277,6 +325,12 @@ def menu():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if play_button_rect.collidepoint(event.pos):
+                    niveau = 1
+                    lab = charger_labyrinthe(niveau)
+                    pygame.mixer.music.stop()
+                    play_game(niveau, lab)
+
+                if levels_button_rect.collidepoint(event.pos):
                     choisir_niveau()
 
                 if quit_button_rect.collidepoint(event.pos):
@@ -286,14 +340,17 @@ def menu():
 
 # Choisir le niveau
 def choisir_niveau():
-    continuer = True
-    while continuer:
+    pygame.mixer.music.load('Musiques/musique_menu.mp3')
+    pygame.mixer.music.play(-1)
+    while True:
         screen.fill((0, 0, 0))
+        screen.blit(background_2, (0, 0))
         screen.blit(niveau1_button_image, niveau1_button_rect)
         screen.blit(niveau2_button_image, niveau2_button_rect)
         screen.blit(niveau3_button_image, niveau3_button_rect)
         screen.blit(niveau4_button_image, niveau4_button_rect)
         screen.blit(niveau5_button_image, niveau5_button_rect)
+        screen.blit(retour_menu_button_image, retour_menu_button_rect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -304,26 +361,36 @@ def choisir_niveau():
                 if niveau1_button_rect.collidepoint(event.pos):
                     niveau = 1
                     lab = charger_labyrinthe(niveau)
+                    pygame.mixer.music.stop()
                     play_game(niveau, lab)
 
                 elif niveau2_button_rect.collidepoint(event.pos):
                     niveau = 2
                     lab = charger_labyrinthe(niveau)
+                    pygame.mixer.music.stop()
                     play_game(niveau, lab)
 
                 elif niveau3_button_rect.collidepoint(event.pos):
                     niveau = 3
                     lab = charger_labyrinthe(niveau)
+                    pygame.mixer.music.stop()
                     play_game(niveau, lab)
 
                 elif niveau4_button_rect.collidepoint(event.pos):
                     niveau = 4
                     lab = charger_labyrinthe(niveau)
+                    pygame.mixer.music.stop()
                     play_game(niveau, lab)
+
                 elif niveau5_button_rect.collidepoint(event.pos):
                     niveau = 5
                     lab = charger_labyrinthe(niveau)
+                    pygame.mixer.music.stop()
                     play_game(niveau, lab)
+
+                elif retour_menu_button_rect.collidepoint(event.pos):
+                    menu()
+
 
         pygame.display.update()
 
@@ -355,12 +422,27 @@ perso_images = {
 
 # Initialisation de l'index d'animation
 perso_anim = 0
+clefs_prises = 0
 vitesse = 10  # vitesse du personnage
 
 def play_game(niveau, lab):
-    global perso_anim
+    global perso_anim, clefs_prises
     personnage = pygame.Rect(55, 55, 40, 40)  # Position de départ du personnage
-    portes = dessiner_labyrinthe(lab, niveau)  # Dessiner le labyrinthe et obtenir les portes
+    portes, clefs = dessiner_labyrinthe(lab, niveau)  # Dessiner le labyrinthe et obtenir les portes
+    clefs_prises = []
+
+    # Lancer la musique selon le niveau
+    if niveau == 1:
+        pygame.mixer.music.load('Musiques/musique_level_1.mp3')
+    elif niveau == 2:
+        pygame.mixer.music.load('Musiques/musique_level_2.mp3')
+    elif niveau == 3:
+        pygame.mixer.music.load('Musiques/musique_level_3.mp3')
+    elif niveau == 4:
+        pygame.mixer.music.load('Musiques/musique_level_4.mp3')
+    elif niveau == 5:
+        pygame.mixer.music.load('Musiques/musique_level_5.mp3')
+    pygame.mixer.music.play(-1)  
 
     # Boucle du jeu
     while True:
@@ -369,8 +451,6 @@ def play_game(niveau, lab):
                 pygame.quit()
                 exit()
 
-        # Remplir l'écran avec une couleur de fond
-        screen.fill((0, 0, 0))
 
         # Charger les touches et définir la direction
         keys = pygame.key.get_pressed()
@@ -406,11 +486,22 @@ def play_game(niveau, lab):
             else:
                 new_y = personnage.y  # Annuler déplacement si collision
 
+
+        for clef_rect in clefs[:]:
+            if personnage.colliderect(clef_rect):
+                if clef_rect not in clefs_prises:
+                    effet_clef.play()
+                    clefs_prises.append(clef_rect)  # On stocke les rectangles, pas les images
+                clefs.remove(clef_rect)  # Ajouté : ajouter la clé à la liste des clés prises
+
         # Vérification de la collision avec la porte
         for porte_rect in portes:
             if personnage.colliderect(porte_rect):
-                retour_menu()  # Revenir au menu si la porte est atteinte
-
+                if len(clefs_prises) > 0:  # Vérifie si au moins une clé a été prise
+                    pygame.mixer.music.stop()
+                    choisir_niveau()  # Revenir au menu si la porte est atteinte
+                    
+               
         # Mettre à jour les positions du personnage si pas de collision
         personnage.x = new_x
         personnage.y = new_y
@@ -422,8 +513,13 @@ def play_game(niveau, lab):
         # Dessiner la vision autour du personnage
         dessiner_vision(personnage)
 
+        for i in range(len(clefs_prises)):
+            x = screen.get_width() - 50 * (i + 1)
+            screen.blit(sprite_clef, (x, 10))
+
         # Animation continue : faire avancer l'index des images
         perso_anim += 1
+
 
         # Mettre à jour l'écran
         pygame.display.flip()
@@ -434,8 +530,7 @@ def play_game(niveau, lab):
                 pygame.quit()
                 exit()
 
-        clock.tick(20)  # Limiter la vitesse de l'animation
-
+        clock.tick(30)  # Limiter la vitesse de l'animation
 
 menu()
 
