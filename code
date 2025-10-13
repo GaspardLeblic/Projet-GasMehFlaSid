@@ -1,1 +1,118 @@
-donne le code zebi
+import turtle
+import random
+
+# === Configuration ===
+ROWS = 10
+COLS = 10
+TOTAL_CELLS = ROWS * COLS
+CELL_SIZE = 40
+WIDTH = COLS * CELL_SIZE
+HEIGHT = ROWS * CELL_SIZE
+
+# === Union-Find pour fusion aléatoire ===
+class UnionFind:
+    def __init__(self, size):
+        self.parent = list(range(size))
+
+    def find(self, x):
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]
+            x = self.parent[x]
+        return x
+
+    def union(self, x, y):
+        xr = self.find(x)
+        yr = self.find(y)
+        if xr != yr:
+            self.parent[yr] = xr
+            return True
+        return False
+
+# === Générer tous les murs possibles ===
+def generate_walls(rows, cols):
+    walls = []
+    for r in range(rows):
+        for c in range(cols):
+            cell = r * cols + c
+            if c < cols - 1:  # mur droite
+                walls.append((cell, cell + 1))
+            if r < rows - 1:  # mur bas
+                walls.append((cell, cell + cols))
+    return walls
+
+# === Générer le labyrinthe par fusion aléatoire ===
+def generate_maze(rows, cols):
+    uf = UnionFind(rows * cols)
+    walls = generate_walls(rows, cols)
+    random.shuffle(walls)
+    maze = set(walls)
+
+    for wall in walls:
+        a, b = wall
+        if uf.union(a, b):
+            maze.remove(wall)
+    return maze
+
+# === Dessiner le labyrinthe ===
+def draw_maze(rows, cols, maze, entry_cell, exit_cell):
+    turtle.speed(0)
+    turtle.penup()
+    turtle.hideturtle()
+
+    def draw_wall(x1, y1, x2, y2):
+        turtle.penup()
+        turtle.goto(x1, y1)
+        turtle.pendown()
+        turtle.goto(x2, y2)
+
+    start_x = -WIDTH // 2
+    start_y = HEIGHT // 2
+
+    for r in range(rows):
+        for c in range(cols):
+            x = start_x + c * CELL_SIZE
+            y = start_y - r * CELL_SIZE
+            cell = r * cols + c
+
+            # mur haut
+            if r == 0:
+                draw_wall(x, y, x + CELL_SIZE, y)
+
+            # mur gauche
+            if c == 0:
+                # sauf si entrée
+                if cell != entry_cell:
+                    draw_wall(x, y, x, y - CELL_SIZE)
+
+            # mur droite
+            if c < cols - 1:
+                if (cell, cell + 1) in maze or (cell + 1, cell) in maze:
+                    draw_wall(x + CELL_SIZE, y, x + CELL_SIZE, y - CELL_SIZE)
+            else:
+                # Dernière colonne — sauf si sortie
+                if cell != exit_cell:
+                    draw_wall(x + CELL_SIZE, y, x + CELL_SIZE, y - CELL_SIZE)
+
+            # mur bas
+            if r < rows - 1:
+                if (cell, cell + cols) in maze or (cell + cols, cell) in maze:
+                    draw_wall(x, y - CELL_SIZE, x + CELL_SIZE, y - CELL_SIZE)
+            else:
+                # Dernière ligne
+                draw_wall(x, y - CELL_SIZE, x + CELL_SIZE, y - CELL_SIZE)
+
+# === Définir l'entrée/sortie aléatoires ===
+def choose_entry_exit(rows, cols):
+    entry_row = random.randint(0, rows - 1)
+    exit_row = random.randint(0, rows - 1)
+    entry_cell = entry_row * cols  # colonne 0
+    exit_cell = exit_row * cols + (cols - 1)  # dernière colonne
+    return entry_cell, exit_cell
+
+# === Programme principal ===
+maze = generate_maze(ROWS, COLS)
+entry_cell, exit_cell = choose_entry_exit(ROWS, COLS)
+draw_maze(ROWS, COLS, maze, entry_cell, exit_cell)
+
+# === Lancer le dessin ===
+turtle.done()
