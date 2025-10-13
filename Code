@@ -1,0 +1,203 @@
+🧱 1. Importations et configuration
+import turtle
+import random
+
+
+turtle : module graphique pour dessiner à l'écran.
+
+random : utilisé pour générer de l'aléatoire (mélange, choix).
+
+# === Configuration ===
+ROWS = 10
+COLS = 10
+TOTAL_CELLS = ROWS * COLS
+CELL_SIZE = 40
+WIDTH = COLS * CELL_SIZE
+HEIGHT = ROWS * CELL_SIZE
+
+
+ROWS et COLS : définissent une grille 10x10.
+
+TOTAL_CELLS : nombre total de cellules (10 × 10 = 100).
+
+CELL_SIZE : taille (en pixels) d'une cellule dans le dessin.
+
+WIDTH, HEIGHT : dimensions du labyrinthe total en pixels.
+
+🔗 2. Classe Union-Find (ou Disjoint Set Union)
+
+Elle sert à connecter des cellules sans former de cycles, pour garantir un labyrinthe "parfait" (un seul chemin entre deux points).
+
+class UnionFind:
+    def __init__(self, size):
+        self.parent = list(range(size))
+
+
+Chaque cellule commence dans son propre ensemble.
+
+    def find(self, x):
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]  # compression
+            x = self.parent[x]
+        return x
+
+
+find(x) cherche la racine de l'ensemble contenant x, avec compression de chemin (optimisation).
+
+    def union(self, x, y):
+        xr = self.find(x)
+        yr = self.find(y)
+        if xr != yr:
+            self.parent[yr] = xr
+            return True
+        return False
+
+
+union(x, y) fusionne deux ensembles si ce sont des ensembles différents. Retourne True si la fusion a eu lieu (et donc le mur peut être supprimé).
+
+🔨 3. Générer tous les murs
+def generate_walls(rows, cols):
+    walls = []
+    for r in range(rows):
+        for c in range(cols):
+            cell = r * cols + c
+
+
+Boucle sur chaque cellule (r, c) et calcule son index linéaire cell (de 0 à 99).
+
+            if c < cols - 1:  # mur droite
+                walls.append((cell, cell + 1))
+
+
+Si pas à la dernière colonne, ajoute un mur à droite (entre cell et cell + 1).
+
+            if r < rows - 1:  # mur bas
+                walls.append((cell, cell + cols))
+
+
+Si pas à la dernière ligne, ajoute un mur en bas (entre cell et celle du dessous).
+
+🧠 4. Générer le labyrinthe
+def generate_maze(rows, cols):
+    uf = UnionFind(rows * cols)
+    walls = generate_walls(rows, cols)
+    random.shuffle(walls)
+    maze = set(walls)
+
+
+Initialise la structure Union-Find.
+
+Génère et mélange tous les murs.
+
+Initialise maze comme l’ensemble de tous les murs.
+
+    for wall in walls:
+        a, b = wall
+        if uf.union(a, b):
+            maze.remove(wall)
+    return maze
+
+
+Pour chaque mur (a, b) (dans un ordre aléatoire) :
+
+Si on peut fusionner a et b (donc pas encore connectés), on supprime ce mur du labyrinthe.
+
+Résultat : un labyrinthe sans boucle, connecté.
+
+🎨 5. Dessiner le labyrinthe
+def draw_maze(rows, cols, maze, entry_cell, exit_cell):
+    turtle.speed(0)
+    turtle.penup()
+    turtle.hideturtle()
+
+
+Configure turtle pour dessiner rapidement, sans curseur visible.
+
+    def draw_wall(x1, y1, x2, y2):
+        turtle.penup()
+        turtle.goto(x1, y1)
+        turtle.pendown()
+        turtle.goto(x2, y2)
+
+
+Fonction utilitaire pour tracer une ligne entre deux points.
+
+    start_x = -WIDTH // 2
+    start_y = HEIGHT // 2
+
+
+Point de départ pour centrer le labyrinthe à l'écran.
+
+🧱 Boucle de dessin des cellules
+    for r in range(rows):
+        for c in range(cols):
+            x = start_x + c * CELL_SIZE
+            y = start_y - r * CELL_SIZE
+            cell = r * cols + c
+
+
+Pour chaque cellule, calcule sa position (x, y) et son index.
+
+⬆ Mur du haut (seulement pour la 1re ligne)
+            if r == 0:
+                draw_wall(x, y, x + CELL_SIZE, y)
+
+⬅ Mur gauche (sauf si c’est l’entrée)
+            if c == 0:
+                if cell != entry_cell:
+                    draw_wall(x, y, x, y - CELL_SIZE)
+
+➡ Mur droite
+            if c < cols - 1:
+                if (cell, cell + 1) in maze or (cell + 1, cell) in maze:
+                    draw_wall(x + CELL_SIZE, y, x + CELL_SIZE, y - CELL_SIZE)
+            else:
+                if cell != exit_cell:
+                    draw_wall(x + CELL_SIZE, y, x + CELL_SIZE, y - CELL_SIZE)
+
+
+Si ce mur est encore dans maze, il est dessiné.
+
+Si on est à la dernière colonne, on dessine toujours le mur sauf s’il s’agit de la sortie.
+
+⬇ Mur bas
+            if r < rows - 1:
+                if (cell, cell + cols) in maze or (cell + cols, cell) in maze:
+                    draw_wall(x, y - CELL_SIZE, x + CELL_SIZE, y - CELL_SIZE)
+            else:
+                draw_wall(x, y - CELL_SIZE, x + CELL_SIZE, y - CELL_SIZE)
+
+
+On dessine le mur du bas si encore présent dans le labyrinthe.
+
+Si on est à la dernière ligne, on le dessine systématiquement.
+
+🎲 6. Choisir entrée/sortie aléatoires
+def choose_entry_exit(rows, cols):
+    entry_row = random.randint(0, rows - 1)
+    exit_row = random.randint(0, rows - 1)
+    entry_cell = entry_row * cols
+    exit_cell = exit_row * cols + (cols - 1)
+    return entry_cell, exit_cell
+
+
+Choisit une ligne aléatoire pour l’entrée (colonne 0).
+
+Choisit une ligne aléatoire pour la sortie (colonne dernière).
+
+Calcule les indices linéaires correspondants et les retourne.
+
+🚀 7. Programme principal
+maze = generate_maze(ROWS, COLS)
+entry_cell, exit_cell = choose_entry_exit(ROWS, COLS)
+draw_maze(ROWS, COLS, maze, entry_cell, exit_cell)
+turtle.done()
+
+
+Génére le labyrinthe.
+
+Sélectionne l’entrée/sortie.
+
+Dessine tout.
+
+turtle.done() termine proprement et garde la fenêtre ouverte.
